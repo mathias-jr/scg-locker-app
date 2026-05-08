@@ -703,7 +703,7 @@ function renderAdmin(){
           <div style="flex:1;">
             <div style="font-weight:700;font-size:13px;">${esc(a.title)}</div>
             <div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;">Deadline: ${fmt(a.deadline)}</div>
-            <div style="font-size:11px;color:var(--muted);margin-top:2px;">${a.checkins.length} check-in(s)</div>
+                <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px;">${state.members.map(m=>{const c=a.checkins.includes(m.name);return `<span style="font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;background:${c?'#dcfce7':'#fee2e2'};color:${c?'var(--green)':'var(--red)'};">${c?'\u2713':'\u2717'} ${esc(m.name)}</span>`;}).join('')}</div>
           </div>
           <div style="display:flex;gap:6px;">
             <button class="btn" onclick="toggleEditAssign(${a.id})" id="edit-btn-${a.id}"

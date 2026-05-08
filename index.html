@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SCG · Locker Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --navy: #2d3280; --navy-d: #1e2260; --navy-l: #3d43a0;
+  --orange: #e8521a; --orange-l: #ff6b35;
+  --cream: #fdf8f3; --paper: #f0ebe2;
+  --ink: #1a1a2e; --muted: #9399b8; --border: #ddd6c8;
+  --green: #16a34a; --red: #dc2626; --stamp: #c41e3a;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nunito Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden;}
+
+/* HEADER */
+header{background:var(--navy);padding:0 20px;box-shadow:0 3px 20px rgba(45,50,128,0.3);}
+.header-inner{max-width:900px;margin:0 auto;padding:14px 0;display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-text-top{display:flex;align-items:baseline;gap:4px;}
+.brand-text-top span:first-child{font-size:18px;font-weight:900;color:#fff;}
+.brand-text-top span:last-child{font-size:18px;font-weight:900;color:var(--orange);}
+.brand-sub-line{font-size:18px;font-weight:900;color:#fff;line-height:1;}
+.brand-caption{font-size:10px;color:rgba(255,255,255,0.45);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+.header-right{display:flex;align-items:center;gap:10px;}
+.admin-btn{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all 0.15s;}
+.admin-btn:hover{background:rgba(255,255,255,0.2);color:#fff;}
+.export-btn{background:var(--orange);border:none;color:#fff;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:800;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:opacity 0.15s;}
+.export-btn:hover{opacity:0.85;}
+.accent-bar{height:4px;background:linear-gradient(90deg,var(--orange),var(--orange-l),var(--navy));}
+
+/* SCOREBOARD */
+.scoreboard{background:var(--navy-d);padding:10px 20px;border-bottom:2px solid var(--orange);}
+.scoreboard-inner{max-width:900px;margin:0 auto;display:flex;gap:24px;align-items:center;overflow-x:auto;}
+.score-item{display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.score-item .val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--orange);}
+.score-item .lbl{font-size:10px;color:rgba(255,255,255,0.45);font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
+.score-divider{width:1px;height:24px;background:rgba(255,255,255,0.1);}
+
+/* LOCKER ROOM */
+.room-wrap{max-width:900px;margin:0 auto;padding:24px 20px;}
+.room-title{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+.room-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.locker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+
+/* LOCKER */
+.locker{background:#fff;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;user-select:none;}
+.locker:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 6px 20px rgba(45,50,128,0.15);}
+.locker.has-activity{border-color:var(--navy);}
+.locker.all-done{border-color:var(--green);background:#f0fdf4;}
+.locker-top{background:var(--navy);padding:10px 12px 8px;position:relative;}
+.locker.all-done .locker-top{background:var(--green);}
+.locker-number{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.4);}
+.locker-name{font-size:14px;font-weight:900;color:#fff;line-height:1.2;margin-top:2px;}
+.locker-handle{width:20px;height:8px;background:rgba(255,255,255,0.15);border-radius:4px;margin:6px auto 0;}
+.locker-body{padding:10px 12px;}
+.locker-progress{margin-bottom:6px;}
+.locker-bar{height:4px;background:var(--paper);border-radius:2px;overflow:hidden;}
+.locker-fill{height:4px;background:var(--orange);border-radius:2px;transition:width 0.4s;}
+.locker.all-done .locker-fill{background:var(--green);}
+.locker-count{font-size:11px;font-weight:700;color:var(--muted);margin-top:4px;font-family:'JetBrains Mono',monospace;}
+.locker-stamps{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
+.mini-stamp{width:10px;height:10px;border-radius:2px;background:var(--paper);}
+.mini-stamp.done{background:var(--orange);}
+.locker.all-done .mini-stamp.done{background:var(--green);}
+.locker-new-badge{position:absolute;top:6px;right:6px;background:var(--orange);color:#fff;font-size:8px;font-weight:800;padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;}
+
+/* PIN OVERLAY */
+.overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(15,15,30,0.7);align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.overlay.open{display:flex;}
+
+/* PIN BOX */
+.pin-box{background:#fff;border-radius:16px;padding:28px 24px;width:100%;max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.pin-locker-name{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--navy);letter-spacing:2px;margin-bottom:4px;}
+.pin-sub{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:20px;}
+.pin-dots{display:flex;justify-content:center;gap:12px;margin-bottom:20px;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);transition:all 0.15s;}
+.pin-dot.filled{background:var(--navy);border-color:var(--navy);}
+.pin-dot.error{background:var(--red);border-color:var(--red);}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
+.pin-key{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;transition:all 0.1s;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;}
+.pin-key:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
+.pin-key:active{transform:scale(0.94);}
+.pin-key.del{font-size:14px;color:var(--muted);}
+.pin-key.del:hover{background:var(--red);color:#fff;border-color:var(--red);}
+.pin-hint{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
+.pin-hint span{color:var(--orange);font-weight:700;cursor:pointer;}
+.pin-error{font-size:12px;color:var(--red);font-weight:700;margin-bottom:10px;min-height:18px;}
+.pin-cancel{margin-top:12px;background:transparent;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Nunito Sans',sans-serif;font-weight:600;}
+
+/* LOCKER OPEN - ASSIGNMENT PANEL */
+.panel-box{background:#fff;border-radius:16px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.panel-header{background:var(--navy);padding:18px 20px;border-radius:16px 16px 0 0;position:sticky;top:0;z-index:2;}
+.panel-header-name{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:2px;}
+.panel-header-sub{font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.panel-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.panel-body{padding:20px;}
+
+/* PUNCH CARD */
+.punch-card{border:2px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;transition:all 0.2s;}
+.punch-card.is-done{border-color:var(--green);}
+.punch-card.is-closed{opacity:0.6;}
+.punch-top{display:flex;align-items:center;gap:12px;padding:14px 16px;}
+.punch-hole{width:36px;height:36px;border-radius:50%;border:3px dashed var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;}
+.punch-card.is-done .punch-hole{border-color:var(--green);background:#f0fdf4;}
+.punch-stamp-icon{font-size:18px;opacity:0;transform:scale(0);transition:all 0.3s;}
+.punch-card.is-done .punch-stamp-icon{opacity:1;transform:scale(1);}
+.punch-info{flex:1;}
+.punch-title{font-size:14px;font-weight:800;margin-bottom:3px;color:var(--ink);}
+.punch-due{font-size:11px;color:var(--muted);font-weight:600;font-family:'JetBrains Mono',monospace;}
+.punch-badges{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;}
+.pbadge{font-size:9px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:3px;text-transform:uppercase;}
+.pbadge-open{background:#dcfce7;color:var(--green);}
+.pbadge-closed{background:#fee2e2;color:var(--red);}
+.pbadge-time{background:#fff7ed;color:var(--orange);}
+.punch-btn{padding:8px 16px;border-radius:7px;border:none;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:13px;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
+.punch-btn.can-punch{background:var(--orange);color:#fff;box-shadow:0 2px 8px rgba(232,82,26,0.3);}
+.punch-btn.can-punch:hover{background:var(--orange-l);}
+.punch-btn.is-punched{background:#dcfce7;color:var(--green);cursor:default;}
+.punch-btn.is-over{background:var(--paper);color:var(--muted);cursor:default;}
+.punch-divider{height:1px;background:var(--paper);margin:0 16px;}
+.punch-footer{padding:10px 16px;background:var(--paper);display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
+.punch-footer:hover{background:#e8e2d6;}
+.punch-footer-txt{font-size:11px;color:var(--muted);font-weight:700;font-family:'JetBrains Mono',monospace;}
+.punch-members{padding:10px 16px 14px;display:flex;flex-wrap:wrap;gap:6px;}
+.pmtag{font-size:11px;padding:3px 9px;border-radius:4px;font-weight:700;}
+.pmtag-done{background:#dcfce7;color:var(--green);}
+.pmtag-miss{background:#fee2e2;color:var(--red);}
+.pmtag-pend{background:var(--paper);color:var(--muted);}
+
+/* STAMP ANIMATION */
+@keyframes stampIn{0%{transform:scale(2) rotate(-15deg);opacity:0;}60%{transform:scale(0.9) rotate(3deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+.stamp-anim{animation:stampIn 0.35s ease forwards;}
+
+/* ADMIN PANEL */
+.admin-box{background:#fff;border-radius:16px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.admin-header{background:var(--navy-d);padding:18px 20px;border-radius:16px 16px 0 0;position:sticky;top:0;}
+.admin-header-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;}
+.admin-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.admin-body{padding:20px;}
+.admin-section{margin-bottom:24px;}
+.admin-section-title{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-family:'JetBrains Mono',monospace;}
+input,select{background:var(--paper);border:1.5px solid var(--border);color:var(--ink);border-radius:8px;padding:9px 13px;font-family:'Nunito Sans',sans-serif;font-size:14px;outline:none;width:100%;}
+input:focus,select:focus{border-color:var(--navy);background:#fff;}
+input::placeholder{color:var(--muted);}
+.btn{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:13px;padding:9px 18px;border-radius:7px;border:none;cursor:pointer;transition:all 0.15s;}
+.btn-navy{background:var(--navy);color:#fff;}
+.btn-navy:hover{background:var(--navy-l);}
+.btn-orange{background:var(--orange);color:#fff;}
+.btn-orange:hover{opacity:0.88;}
+.btn-red{background:#fee2e2;color:var(--red);}
+.btn-red:hover{background:#fecaca;}
+.btn-green{background:#dcfce7;color:var(--green);}
+.admin-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--paper);}
+.admin-row:last-child{border:none;}
+
+/* EXPORT */
+.export-box{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:500px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.export-box textarea{width:100%;min-height:200px;font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--paper);border:1.5px solid var(--border);border-radius:8px;padding:12px;resize:none;color:var(--ink);outline:none;line-height:1.7;}
+
+/* TOAST */
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;padding:11px 22px;border-radius:30px;font-size:13px;font-weight:700;color:#fff;display:none;white-space:nowrap;animation:toastPop 0.2s ease;box-shadow:0 4px 20px rgba(0,0,0,0.2);}
+@keyframes toastPop{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+/* SETUP PIN SCREEN */
+.setup-box{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.setup-title{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--navy);letter-spacing:2px;margin-bottom:6px;}
+.setup-sub{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:18px;line-height:1.5;}
+
+@media(max-width:480px){
+  .locker-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
+  .header-right{gap:6px;}
+  .admin-btn,.export-btn{font-size:11px;padding:6px 10px;}
+}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- PIN OVERLAY -->
+<div class="overlay" id="pin-overlay">
+  <div id="pin-content"></div>
+</div>
+
+<!-- PANEL OVERLAY -->
+<div class="overlay" id="panel-overlay">
+  <div class="panel-box" id="panel-content"></div>
+</div>
+
+<!-- ADMIN OVERLAY -->
+<div class="overlay" id="admin-overlay">
+  <div class="admin-box">
+    <div class="admin-header" style="position:relative;">
+      <div class="admin-header-title">⚙ ADMIN PANEL</div>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="admin-body">
+      <!-- Add Assignment -->
+      <div class="admin-section">
+        <div class="admin-section-title">Add Assignment</div>
+        <input type="text" id="a-title" placeholder="Assignment title..." style="margin-bottom:8px;"/>
+        <input type="datetime-local" id="a-deadline" style="margin-bottom:10px;"/>
+        <button class="btn btn-orange" onclick="addAssignment()">+ Add Assignment</button>
+      </div>
+      <!-- Assignments list -->
+      <div class="admin-section">
+        <div class="admin-section-title">All Assignments</div>
+        <div id="admin-assign-list"></div>
+      </div>
+      <!-- Add Member -->
+      <div class="admin-section">
+        <div class="admin-section-title">Add Member</div>
+        <div style="display:flex;gap:8px;">
+          <input type="text" id="a-member" placeholder="Full name..." onkeydown="if(event.key==='Enter')addMember()" style="flex:1;width:auto;"/>
+          <button class="btn btn-navy" onclick="addMember()" style="width:auto;white-space:nowrap;">+ Add</button>
+        </div>
+      </div>
+      <!-- Member list -->
+      <div class="admin-section">
+        <div class="admin-section-title">Members</div>
+        <div id="admin-member-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT OVERLAY -->
+<div class="overlay" id="export-overlay">
+  <div class="export-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--navy);letter-spacing:2px;">EXPORT REPORT</div>
+      <button onclick="closeExport()" style="background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--muted);">✕</button>
+    </div>
+    <div style="margin-bottom:10px;">
+      <select id="export-select" onchange="updateExportText()" style="margin-bottom:0;"></select>
+    </div>
+    <textarea id="export-text" readonly></textarea>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+      <button class="btn btn-orange" onclick="copyExport()">📋 Copy</button>
+      <button class="btn btn-green" onclick="downloadExport()">⬇ Download</button>
+      <button class="btn" onclick="closeExport()" style="background:var(--paper);color:var(--muted);">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="brand" id="scg-logo" style="cursor:default;user-select:none;">
+      <svg width="44" height="44" viewBox="0 0 100 100" fill="none" style="flex-shrink:0;pointer-events:none;">
+        <circle cx="50" cy="56" r="21" stroke="#e8521a" stroke-width="7" fill="none"/>
+        <line x1="50" y1="35" x2="50" y2="27" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="50" y1="77" x2="50" y2="85" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="29" y1="56" x2="21" y2="56" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="71" y1="56" x2="79" y2="56" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="35" y1="41" x2="29" y2="35" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="65" y1="71" x2="71" y2="77" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="65" y1="41" x2="71" y2="35" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="35" y1="71" x2="29" y2="77" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <path d="M26 52 Q26 28 50 26 Q74 28 74 52" fill="#2d3280"/>
+        <rect x="23" y="50" width="54" height="9" rx="4.5" fill="#2d3280"/>
+        <path d="M30 50 Q50 43 70 50" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+      </svg>
+      <div>
+        <div class="brand-text-top"><span>Safety</span><span>Campaign</span></div>
+        <div class="brand-sub-line">Ghana</div>
+        <div class="brand-caption">Mentorship · Assignment Locker Room</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="admin-btn" id="admin-btn" onclick="openAdmin()" style="display:none;">⚙ Admin</button>
+      <button class="export-btn" onclick="openExport()">📤 Export</button>
+    </div>
+  </div>
+</header>
+<div class="accent-bar"></div>
+
+<!-- SCOREBOARD -->
+<div class="scoreboard">
+  <div class="scoreboard-inner">
+    <div class="score-item"><div class="val" id="sc-members">0</div><div class="lbl">Members</div></div>
+    <div class="score-divider"></div>
+    <div class="score-item"><div class="val" id="sc-assignments">0</div><div class="lbl">Assignments</div></div>
+    <div class="score-divider"></div>
+    <div class="score-item"><div class="val" id="sc-checkins">0</div><div class="lbl">Total Check-ins</div></div>
+    <div class="score-divider"></div>
+    <div class="score-item"><div class="val" id="sc-complete">0</div><div class="lbl">All Done</div></div>
+  </div>
+</div>
+
+<!-- LOCKER ROOM -->
+<div class="room-wrap">
+  <div class="room-title">Tap your locker · Enter PIN · Stamp your assignments</div>
+  <div class="locker-grid" id="locker-grid"></div>
+</div>
+
+<script>
+const SK = 'scg_lockers_v1';
+function load() {
+  try { const r=localStorage.getItem(SK); if(r) return JSON.parse(r); } catch(e){}
+  return {
+    members: [
+      {name:"Mathias",pin:"1234"},
+      {name:"Ama",pin:"1111"},
+      {name:"Kofi",pin:"2222"},
+      {name:"Akosua",pin:"3333"},
+      {name:"Kwame",pin:"4444"},
+      {name:"Abena",pin:"5555"},
+      {name:"Yaw",pin:"6666"},
+      {name:"Efua",pin:"7777"},
+      {name:"Nana",pin:"8888"},
+      {name:"Fiifi",pin:"9999"}
+    ],
+    assignments: [
+      {id:1, title:"Safety Management Systems Summary", deadline:new Date(Date.now()+2*86400000).toISOString(), checkins:["Mathias","Ama"]},
+      {id:2, title:"Risk Assessment Write-up", deadline:new Date(Date.now()+5*86400000).toISOString(), checkins:[]}
+    ]
+  };
+}
+function save() { localStorage.setItem(SK, JSON.stringify(state)); }
+
+let state = load();
+let pinState = {member:null, entered:'', mode:'verify', setupStep:0, newPin:''};
+let panelMember = null;
+let expandedAssign = null;
+
+// ── HELPERS ────────────────────────────────────────────
+function fmt(iso){return new Date(iso).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function isClosed(a){
+  if(typeof a === 'string') return new Date()>new Date(a); // legacy deadline-only calls
+  if(a.forceClosed===true) return true;
+  if(a.forceOpen===true) return false;
+  return new Date()>new Date(a.deadline);
+}
+function timeLeft(dl){
+  const d=new Date(dl)-new Date(); if(d<=0) return null;
+  const h=Math.floor(d/3600000); return h<24?`${h}h left`:`${Math.floor(h/24)}d left`;
+}
+function isUrgent(dl){
+  const d=new Date(dl)-new Date();
+  return d>0 && d<=12*3600000;
+}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+let toastT;
+function toast(msg,type='success'){
+  const el=document.getElementById('toast');
+  el.textContent=msg;
+  el.style.background=type==='error'?'#dc2626':type==='info'?'#2d3280':'#16a34a';
+  el.style.display='block';
+  clearTimeout(toastT);
+  toastT=setTimeout(()=>el.style.display='none',2800);
+}
+
+// ── SCOREBOARD ─────────────────────────────────────────
+function renderScoreboard(){
+  document.getElementById('sc-members').textContent=state.members.length;
+  document.getElementById('sc-assignments').textContent=state.assignments.length;
+  document.getElementById('sc-checkins').textContent=state.assignments.reduce((s,a)=>s+a.checkins.length,0);
+  const allDone=state.members.filter(m=>state.assignments.length>0&&state.assignments.every(a=>a.checkins.includes(m.name))).length;
+  document.getElementById('sc-complete').textContent=allDone;
+}
+
+// ── LOCKERS ────────────────────────────────────────────
+function renderLockers(){
+  renderScoreboard();
+  const grid=document.getElementById('locker-grid');
+  grid.innerHTML=state.members.map((m,i)=>{
+    const done=state.assignments.filter(a=>a.checkins.includes(m.name)).length;
+    const total=state.assignments.length;
+    const pct=total?Math.round(done/total*100):0;
+    const allDone=total>0&&done===total;
+    const hasActivity=done>0;
+    const stamps=state.assignments.map(a=>`<div class="mini-stamp ${a.checkins.includes(m.name)?'done':''}"></div>`).join('');
+    return `
+    <div class="locker ${allDone?'all-done':hasActivity?'has-activity':''}" onclick="openLocker('${esc(m.name)}')">
+      <div class="locker-top">
+        <div class="locker-number">#${String(i+1).padStart(2,'0')}</div>
+        <div class="locker-name">${esc(m.name)}</div>
+        <div class="locker-handle"></div>
+        ${allDone?'<div class="locker-new-badge">ALL DONE</div>':''}
+      </div>
+      <div class="locker-body">
+        <div class="locker-progress">
+          <div class="locker-bar"><div class="locker-fill" style="width:${pct}%"></div></div>
+          <div class="locker-count">${done}/${total} DONE</div>
+        </div>
+        <div class="locker-stamps">${stamps}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── OPEN LOCKER → PIN ─────────────────────────────────
+function openLocker(name){
+  const m=state.members.find(x=>x.name===name);
+  if(!m) return;
+  pinState={member:m, entered:'', mode: m.pin?'verify':'setup', setupStep:0, newPin:''};
+  renderPin();
+  document.getElementById('pin-overlay').classList.add('open');
+}
+
+function renderPin(){
+  const m=pinState.member;
+  const container=document.getElementById('pin-content');
+  if(pinState.mode==='setup'){
+    const step=pinState.setupStep;
+    container.innerHTML=`
+    <div class="setup-box">
+      <div class="setup-title">${esc(m.name)}</div>
+      <div class="setup-sub">${step===0?'Set a 4-digit PIN for your locker.<br/>You\'ll use this every time you check in.':'Confirm your PIN'}</div>
+      <div class="pin-dots" id="pin-dots">
+        ${[0,1,2,3].map(i=>`<div class="pin-dot ${(step===0?pinState.entered:pinState.entered).length>i?'filled':''}"></div>`).join('')}
+      </div>
+      <div class="pin-error" id="pin-error"></div>
+      <div class="pin-pad">
+        ${[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map(k=>
+          k===''?'<div></div>':`<button class="pin-key ${k==='⌫'?'del':''}" onclick="pinPress('${k}')">${k}</button>`
+        ).join('')}
+      </div>
+      <button class="pin-cancel" onclick="closePin()">Cancel</button>
+    </div>`;
+  } else {
+    container.innerHTML=`
+    <div class="pin-box">
+      <div class="pin-locker-name">${esc(m.name)}</div>
+      <div class="pin-sub">Enter your 4-digit PIN</div>
+      <div class="pin-dots" id="pin-dots">
+        ${[0,1,2,3].map(i=>`<div class="pin-dot ${pinState.entered.length>i?'filled':''}"></div>`).join('')}
+      </div>
+      <div class="pin-error" id="pin-error"></div>
+      <div class="pin-pad">
+        ${[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map(k=>
+          k===''?'<div></div>':`<button class="pin-key ${k==='⌫'?'del':''}" onclick="pinPress('${k}')">${k}</button>`
+        ).join('')}
+      </div>
+      <div class="pin-hint">Forgot your PIN? <span onclick="resetPin('${esc(m.name)}')">Reset it</span></div>
+      <button class="pin-cancel" onclick="closePin()">Cancel</button>
+    </div>`;
+  }
+}
+
+function pinPress(key){
+  if(key==='⌫'){
+    pinState.entered=pinState.entered.slice(0,-1);
+    renderPin(); return;
+  }
+  if(pinState.entered.length>=4) return;
+  pinState.entered+=String(key);
+  renderPin();
+  if(pinState.entered.length===4) setTimeout(()=>submitPin(),120);
+}
+
+function submitPin(){
+  const m=pinState.member;
+  if(pinState.mode==='setup'){
+    if(pinState.setupStep===0){
+      pinState.newPin=pinState.entered;
+      pinState.entered='';
+      pinState.setupStep=1;
+      renderPin();
+    } else {
+      if(pinState.entered===pinState.newPin){
+        m.pin=pinState.newPin;
+        save();
+        closePin();
+        toast(`PIN set! Opening your locker...`);
+        setTimeout(()=>openPanel(m.name),400);
+      } else {
+        showPinError('PINs do not match. Try again.');
+        pinState.entered='';
+        pinState.setupStep=0;
+        pinState.newPin='';
+        setTimeout(renderPin,600);
+      }
+    }
+  } else {
+    if(pinState.entered===m.pin){
+      closePin();
+      openPanel(m.name);
+    } else {
+      showPinError('Wrong PIN. Try again.');
+      pinState.entered='';
+      setTimeout(renderPin,600);
+    }
+  }
+}
+
+function showPinError(msg){
+  const dots=document.querySelectorAll('.pin-dot');
+  dots.forEach(d=>{d.classList.add('error'); d.classList.remove('filled');});
+  const errEl=document.getElementById('pin-error');
+  if(errEl) errEl.textContent=msg;
+  setTimeout(()=>dots.forEach(d=>d.classList.remove('error')),600);
+}
+
+function resetPin(name){
+  const m=state.members.find(x=>x.name===name);
+  if(!m) return;
+  m.pin=''; save();
+  pinState={member:m, entered:'', mode:'setup', setupStep:0, newPin:''};
+  renderPin();
+}
+
+function closePin(){
+  document.getElementById('pin-overlay').classList.remove('open');
+}
+
+// ── PANEL (open locker) ────────────────────────────────
+function openPanel(name){
+  panelMember=name;
+  renderPanel();
+  document.getElementById('panel-overlay').classList.add('open');
+}
+
+function renderPanel(){
+  const name=panelMember;
+  const doneCount=state.assignments.filter(a=>a.checkins.includes(name)).length;
+  const total=state.assignments.length;
+  document.getElementById('panel-content').innerHTML=`
+    <div class="panel-header" style="position:relative;">
+      <button class="panel-close" onclick="closePanel()">✕</button>
+      <div class="panel-header-name">📂 ${esc(name)}'s Locker</div>
+      <div class="panel-header-sub">${doneCount}/${total} Assignments Stamped</div>
+    </div>
+    <div class="panel-body">
+      ${!state.assignments.length
+        ? `<div style="text-align:center;padding:30px;color:var(--muted);">No assignments yet.<br/>Ask your admin to add some.</div>`
+        : state.assignments.map(a=>{
+            const closed=isClosed(a);
+            const done=a.checkins.includes(name);
+            const tl=timeLeft(a.deadline);
+            const pct=state.members.length?Math.round(a.checkins.length/state.members.length*100):0;
+            const expanded=expandedAssign===a.id;
+            const memberTags=expanded?`
+              <div class="punch-members">
+                ${state.members.map(m=>{
+                  const c=a.checkins.includes(m.name);
+                  const late=closed&&!c;
+                  return `<span class="pmtag ${late?'pmtag-miss':c?'pmtag-done':'pmtag-pend'}">${late?'✗':c?'✓':'○'} ${esc(m.name)}</span>`;
+                }).join('')}
+              </div>` : '';
+            return `
+            <div class="punch-card ${done?'is-done':''} ${closed?'is-closed':''}">
+              <div class="punch-top">
+                <div class="punch-hole">
+                  <span class="punch-stamp-icon ${done?'stamp-anim':''}">✅</span>
+                </div>
+                <div class="punch-info">
+                  <div class="punch-title">${esc(a.title)}</div>
+                  <div class="punch-due" style="${isUrgent(a.deadline)?'color:var(--red);font-weight:800;':''}">${isUrgent(a.deadline)?'🔴 ':''}Deadline: ${fmt(a.deadline)}</div>
+                  <div class="punch-badges">
+                    <span class="pbadge ${closed?'pbadge-closed':'pbadge-open'}">${closed?'Closed':'Open'}</span>
+                    ${tl?`<span class="pbadge pbadge-time">⏱ ${tl}</span>`:''}
+                  </div>
+                </div>
+                <button
+                  class="punch-btn ${done?'is-punched':closed?'is-over':'can-punch'}"
+                  ${done||closed?'disabled':''}
+                  onclick="stampAssignment(${a.id})">
+                  ${done?'Checked In ✓':closed?'Closed':'Check In'}
+                </button>
+              </div>
+              <div class="punch-divider"></div>
+              <div class="punch-footer" onclick="toggleExpand(${a.id})">
+                <span class="punch-footer-txt">${a.checkins.length}/${state.members.length} members stamped ${expanded?'▲':'▼'}</span>
+                <span style="font-size:11px;font-weight:800;color:${pct===100?'var(--green)':'var(--orange)'};">${pct}%</span>
+              </div>
+              ${memberTags}
+            </div>`;
+          }).join('')}
+    </div>`;
+}
+
+function stampAssignment(id){
+  const name=panelMember;
+  const a=state.assignments.find(x=>x.id===id);
+  if(!a) return;
+  if(isClosed(a)) return toast('Deadline passed — assignment is closed.','error');
+  if(a.checkins.includes(name)) return toast('Already stamped!','info');
+  a.checkins.push(name);
+  save(); toast(`"${a.title}" stamped! ✅`);
+  renderPanel();
+}
+
+// ── SECRET LOGO TAP ───────────────────────────────────
+(function(){
+  var taps = [];
+  var THRESHOLD = 3;
+  var WINDOW_MS = 1500;
+  var logo = document.getElementById('scg-logo');
+  logo.addEventListener('click', function(e){
+    var now = Date.now();
+    taps.push(now);
+    // keep only recent taps
+    taps = taps.filter(function(t){ return now - t < WINDOW_MS; });
+    if(taps.length >= THRESHOLD){
+      taps = [];
+      var btn = document.getElementById('admin-btn');
+      var isHidden = btn.style.display === 'none' || btn.style.display === '';
+      if(isHidden){
+        btn.style.display = 'inline-block';
+        btn.style.background = 'rgba(232,82,26,0.5)';
+        setTimeout(function(){ btn.style.background = ''; }, 800);
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+  });
+})();
+
+renderLockers();
+
+function toggleExpand(id){
+  expandedAssign=expandedAssign===id?null:id;
+  renderPanel();
+}
+
+function closePanel(){
+  document.getElementById('panel-overlay').classList.remove('open');
+  expandedAssign=null;
+}
+
+// ── ADMIN ──────────────────────────────────────────────
+const ADMIN_PIN = '0000';
+let adminUnlocked = false;
+
+function openAdmin(){
+  if(adminUnlocked){
+    renderAdmin();
+    document.getElementById('admin-overlay').classList.add('open');
+    return;
+  }
+  // Show admin PIN prompt
+  document.getElementById('pin-content').innerHTML = `
+    <div class="pin-box">
+      <div class="pin-locker-name" style="color:var(--orange);">ADMIN</div>
+      <div class="pin-sub">Enter Admin PIN to continue</div>
+      <div class="pin-dots" id="pin-dots">
+        ${[0,1,2,3].map(i=>'<div class="pin-dot"></div>').join('')}
+      </div>
+      <div class="pin-error" id="pin-error"></div>
+      <div class="pin-pad">
+        ${[1,2,3,4,5,6,7,8,9,'',0,'⌫'].map(k=>
+          k===''?'<div></div>':`<button class="pin-key ${k==='⌫'?'del':''}" onclick="adminPinPress('${k}')">${k}</button>`
+        ).join('')}
+      </div>
+      <div class="pin-hint" style="margin-top:4px;">Default PIN is <span style="cursor:default;">0000</span></div>
+      <button class="pin-cancel" onclick="closePin()">Cancel</button>
+    </div>`;
+  adminPinEntered = '';
+  document.getElementById('pin-overlay').classList.add('open');
+}
+
+let adminPinEntered = '';
+function adminPinPress(key){
+  if(key==='⌫'){ adminPinEntered=adminPinEntered.slice(0,-1); updateAdminDots(); return; }
+  if(adminPinEntered.length>=4) return;
+  adminPinEntered+=String(key);
+  updateAdminDots();
+  if(adminPinEntered.length===4) setTimeout(checkAdminPin,120);
+}
+function updateAdminDots(){
+  const dots=document.querySelectorAll('.pin-dot');
+  dots.forEach((d,i)=>{ d.classList.toggle('filled', i<adminPinEntered.length); });
+}
+function checkAdminPin(){
+  if(adminPinEntered===ADMIN_PIN){
+    adminUnlocked=true;
+    closePin();
+    renderAdmin();
+    document.getElementById('admin-overlay').classList.add('open');
+  } else {
+    const dots=document.querySelectorAll('.pin-dot');
+    dots.forEach(d=>{ d.classList.add('error'); d.classList.remove('filled'); });
+    const errEl=document.getElementById('pin-error');
+    if(errEl) errEl.textContent='Wrong PIN. Try again.';
+    adminPinEntered='';
+    setTimeout(()=>{ dots.forEach(d=>d.classList.remove('error')); updateAdminDots(); },700);
+  }
+}
+function closeAdmin(){ document.getElementById('admin-overlay').classList.remove('open'); }
+
+function renderAdmin(){
+  // Assignments
+  document.getElementById('admin-assign-list').innerHTML = state.assignments.length
+    ? state.assignments.map(a=>{
+        const dl = new Date(a.deadline);
+        const localDL = new Date(dl.getTime() - dl.getTimezoneOffset()*60000).toISOString().slice(0,16);
+        return `
+      <div style="border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;">
+        <div class="admin-row" style="padding:10px 12px;">
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:13px;">${esc(a.title)}</div>
+            <div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;">Deadline: ${fmt(a.deadline)}</div>
+            <div style="font-size:11px;color:var(--muted);margin-top:2px;">${a.checkins.length} check-in(s)</div>
+          </div>
+          <div style="display:flex;gap:6px;">
+            <button class="btn" onclick="toggleEditAssign(${a.id})" id="edit-btn-${a.id}"
+              style="background:#eff6ff;color:#2d3280;font-size:11px;padding:5px 10px;">✏ Edit</button>
+            <button class="btn" onclick="toggleAssignStatus(${a.id})"
+              style="font-size:11px;padding:5px 10px;background:${isClosed(a)?'#dcfce7':'#fee2e2'};color:${isClosed(a)?'var(--green)':'var(--red)'};">
+              ${isClosed(a)?'🔓 Re-open':'🔒 Close'}
+            </button>
+            <button class="btn btn-red" onclick="deleteAssignment(${a.id})" style="font-size:11px;padding:5px 10px;">Remove</button>
+          </div>
+        </div>
+        <div id="edit-form-${a.id}" style="display:none;background:var(--paper);padding:12px;border-top:1px solid var(--border);">
+          <div style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;font-family:'JetBrains Mono',monospace;">Edit Assignment</div>
+          <input type="text" id="edit-title-${a.id}" value="${esc(a.title)}" style="margin-bottom:8px;"/>
+          <input type="datetime-local" id="edit-dl-${a.id}" value="${localDL}" style="margin-bottom:10px;"/>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-navy" onclick="saveEditAssign(${a.id})" style="font-size:12px;padding:7px 14px;">Save Changes</button>
+            <button class="btn" onclick="toggleEditAssign(${a.id})" style="background:var(--border);color:var(--ink);font-size:12px;padding:7px 12px;">Cancel</button>
+          </div>
+        </div>
+      </div>`;
+      }).join('')
+    : `<div style="color:var(--muted);font-size:12px;padding:6px 0;">No assignments yet.</div>`;
+  // Members
+  document.getElementById('admin-member-list').innerHTML = state.members.length
+    ? state.members.map((m,i)=>`
+      <div class="admin-row">
+        <div style="display:flex;align-items:center;gap:8px;flex:1;">
+          <span style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;min-width:20px;">${String(i+1).padStart(2,'0')}</span>
+          <span style="font-weight:700;font-size:13px;">${esc(m.name)}</span>
+          <span style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;">${m.pin?'PIN set':'No PIN'}</span>
+        </div>
+        <button class="btn btn-red" onclick="removeMember('${esc(m.name)}')" style="font-size:11px;padding:5px 10px;">Remove</button>
+      </div>`).join('')
+    : `<div style="color:var(--muted);font-size:12px;padding:6px 0;">No members yet.</div>`;
+}
+
+function addAssignment(){
+  const title=document.getElementById('a-title').value.trim();
+  const dl=document.getElementById('a-deadline').value;
+  if(!title||!dl) return toast('Fill in title and deadline.','error');
+  state.assignments.push({id:Date.now(),title,deadline:new Date(dl).toISOString(),checkins:[]});
+  document.getElementById('a-title').value='';
+  document.getElementById('a-deadline').value='';
+  save(); toast('Assignment added!'); renderAdmin(); renderLockers();
+}
+
+function deleteAssignment(id){
+  state.assignments=state.assignments.filter(a=>a.id!==id);
+  save(); toast('Assignment removed.'); renderAdmin(); renderLockers();
+}
+
+function toggleEditAssign(id){
+  const form=document.getElementById('edit-form-'+id);
+  const btn=document.getElementById('edit-btn-'+id);
+  const isOpen=form.style.display!=='none';
+  form.style.display=isOpen?'none':'block';
+  btn.textContent=isOpen?'✏ Edit':'✕ Close';
+  btn.style.background=isOpen?'#eff6ff':'#fee2e2';
+  btn.style.color=isOpen?'#2d3280':'var(--red)';
+}
+
+function saveEditAssign(id){
+  const titleEl=document.getElementById('edit-title-'+id);
+  const dlEl=document.getElementById('edit-dl-'+id);
+  if(!titleEl||!dlEl) return;
+  const title=titleEl.value.trim();
+  const dl=dlEl.value;
+  if(!title||!dl) return toast('Title and deadline cannot be empty.','error');
+  const a=state.assignments.find(x=>x.id===id);
+  if(!a) return;
+  a.title=title;
+  a.deadline=new Date(dl).toISOString();
+  save(); toast('Assignment updated!'); renderAdmin(); renderLockers();
+  if(panelMember) renderPanel();
+}
+
+function toggleAssignStatus(id){
+  const a=state.assignments.find(x=>x.id===id);
+  if(!a) return;
+  if(isClosed(a)){
+    // re-open: clear force flags, deadlines stays but set forceOpen
+    a.forceOpen=true; a.forceClosed=false;
+    toast('Assignment re-opened ✅');
+  } else {
+    a.forceClosed=true; a.forceOpen=false;
+    toast('Assignment closed 🔒');
+  }
+  save(); renderAdmin(); renderLockers();
+  if(panelMember) renderPanel();
+}
+
+function addMember(){
+  const name=document.getElementById('a-member').value.trim();
+  if(!name) return;
+  if(state.members.find(m=>m.name===name)) return toast('Name already exists.','error');
+  state.members.push({name,pin:''});
+  document.getElementById('a-member').value='';
+  save(); toast(`${name} added!`); renderAdmin(); renderLockers();
+}
+
+function removeMember(name){
+  state.members=state.members.filter(m=>m.name!==name);
+  save(); toast(`${name} removed.`); renderAdmin(); renderLockers();
+}
+
+// ── EXPORT ─────────────────────────────────────────────
+function openExport(){
+  const sel=document.getElementById('export-select');
+  sel.innerHTML=`<option value="all">All Assignments</option>`+
+    state.assignments.map(a=>`<option value="${a.id}">${esc(a.title)}</option>`).join('');
+  document.getElementById('export-overlay').classList.add('open');
+  updateExportText();
+}
+function closeExport(){ document.getElementById('export-overlay').classList.remove('open'); }
+
+function getExportText(id){
+  const now=new Date().toLocaleString('en-GB');
+  const line='═'.repeat(48);
+  const hdr=`${line}\nSAFETY CAMPAIGN GHANA — MENTORSHIP PROGRAMME 2026\nAssignment Check-In Report\nGenerated: ${now}\n${line}`;
+  function rep(a){
+    const closed=isClosed(a);
+    const done=[...a.checkins];
+    const missing=state.members.filter(m=>!done.includes(m.name)).map(m=>m.name);
+    const pct=state.members.length?Math.round(done.length/state.members.length*100):0;
+    return `\n\n📋 ${a.title}\n`+
+      `   Status   : ${closed?'CLOSED':'OPEN'}\n`+
+      `   Deadline : ${fmt(a.deadline)}\n`+
+      `   Progress : ${done.length}/${state.members.length} (${pct}%)\n\n`+
+      `   ✅ Completed (${done.length}):\n`+(done.length?done.map(m=>`      • ${m}`).join('\n'):'      (none)')+'\n\n'+
+      (closed
+        ?`   ❌ Did NOT submit (${missing.length}):\n`+(missing.length?missing.map(m=>`      • ${m}`).join('\n'):'      (all submitted)')+'\n'
+        :`   ⏳ Pending (${missing.length}):\n`+(missing.length?missing.map(m=>`      • ${m}`).join('\n'):'      (all done!)')+'\n');
+  }
+  return id==='all'?hdr+state.assignments.map(rep).join('\n'+'─'.repeat(48)):hdr+rep(state.assignments.find(a=>a.id==id)||state.assignments[0]);
+}
+
+function updateExportText(){ document.getElementById('export-text').value=getExportText(document.getElementById('export-select').value); }
+function copyExport(){
+  navigator.clipboard.writeText(document.getElementById('export-text').value)
+    .then(()=>toast('Copied!')).catch(()=>{document.getElementById('export-text').select();document.execCommand('copy');toast('Copied!');});
+}
+function downloadExport(){
+  const blob=new Blob([document.getElementById('export-text').value],{type:'text/plain'});
+  const url=URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download=`SCG_Report_${new Date().toISOString().slice(0,10)}.txt`;
+  a.click(); URL.revokeObjectURL(url); toast('Downloaded!');
+}
+
+// Close overlays on backdrop click
+['pin-overlay','panel-overlay','admin-overlay','export-overlay'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(e){
+    if(e.target===this){
+      if(id==='pin-overlay') closePin();
+      else if(id==='panel-overlay') closePanel();
+      else if(id==='admin-overlay') closeAdmin();
+      else closeExport();
+    }
+  });
+});
+
+renderLockers();
+</script>
+</body>
+</html>

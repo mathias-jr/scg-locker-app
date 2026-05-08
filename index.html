@@ -6,99 +6,96 @@
 <title>SCG · Locker Room</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
-:root{--navy:#2d3280;--navy-d:#1e2260;--navy-l:#3d43a0;--orange:#e8521a;--orange-l:#ff6b35;--cream:#fdf8f3;--paper:#f0ebe2;--ink:#1a1a2e;--muted:#9399b8;--border:#ddd6c8;--green:#16a34a;--red:#dc2626;--stamp:#c41e3a;}
+:root{--navy:#2d3280;--navy-d:#1e2260;--navy-l:#3d43a0;--orange:#e8521a;--orange-l:#ff6b35;--cream:#fdf8f3;--paper:#f0ebe2;--ink:#1a1a2e;--muted:#9399b8;--border:#ddd6c8;--green:#16a34a;--red:#dc2626;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Nunito Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden;}
-header{background:var(--navy);padding:0 20px;box-shadow:0 3px 20px rgba(45,50,128,0.3);}
+header{background:var(--navy);padding:0 20px;box-shadow:0 3px 20px rgba(45,50,128,.3);}
 .header-inner{max-width:900px;margin:0 auto;padding:14px 0;display:flex;align-items:center;justify-content:space-between;}
 .brand{display:flex;align-items:center;gap:12px;}
 .brand-text-top{display:flex;align-items:baseline;gap:4px;}
 .brand-text-top span:first-child{font-size:18px;font-weight:900;color:#fff;}
 .brand-text-top span:last-child{font-size:18px;font-weight:900;color:var(--orange);}
 .brand-sub-line{font-size:18px;font-weight:900;color:#fff;line-height:1;}
-.brand-caption{font-size:10px;color:rgba(255,255,255,0.45);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+.brand-caption{font-size:10px;color:rgba(255,255,255,.45);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
 .header-right{display:flex;align-items:center;gap:10px;}
-.admin-btn{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all 0.15s;}
-.admin-btn:hover{background:rgba(255,255,255,0.2);color:#fff;}
-.export-btn{background:var(--orange);border:none;color:#fff;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:800;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:opacity 0.15s;}
-.export-btn:hover{opacity:0.85;}
+.admin-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.7);padding:7px 14px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .15s;}
+.admin-btn:hover{background:rgba(255,255,255,.2);color:#fff;}
+.export-btn{background:var(--orange);border:none;color:#fff;padding:7px 14px;border-radius:6px;font-size:12px;font-weight:800;cursor:pointer;font-family:'Nunito Sans',sans-serif;}
 .accent-bar{height:4px;background:linear-gradient(90deg,var(--orange),var(--orange-l),var(--navy));}
 .scoreboard{background:var(--navy-d);padding:10px 20px;border-bottom:2px solid var(--orange);}
 .scoreboard-inner{max-width:900px;margin:0 auto;display:flex;gap:24px;align-items:center;overflow-x:auto;}
 .score-item{display:flex;align-items:center;gap:8px;white-space:nowrap;}
 .score-item .val{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--orange);}
-.score-item .lbl{font-size:10px;color:rgba(255,255,255,0.45);font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
-.score-divider{width:1px;height:24px;background:rgba(255,255,255,0.1);}
+.score-item .lbl{font-size:10px;color:rgba(255,255,255,.45);font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
+.score-divider{width:1px;height:24px;background:rgba(255,255,255,.1);}
 .room-wrap{max-width:900px;margin:0 auto;padding:24px 20px;}
 .room-title{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:3px;color:var(--muted);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .room-title::after{content:'';flex:1;height:1px;background:var(--border);}
 .locker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
-.locker{background:#fff;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;user-select:none;}
-.locker:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 6px 20px rgba(45,50,128,0.15);}
+.locker{background:#fff;border:2px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden;user-select:none;}
+.locker:hover{border-color:var(--navy);transform:translateY(-2px);box-shadow:0 6px 20px rgba(45,50,128,.15);}
 .locker.has-activity{border-color:var(--navy);}
 .locker.all-done{border-color:var(--green);background:#f0fdf4;}
 .locker-top{background:var(--navy);padding:10px 12px 8px;position:relative;}
 .locker.all-done .locker-top{background:var(--green);}
-.locker-number{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.4);}
+.locker-number{font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.4);}
 .locker-name{font-size:14px;font-weight:900;color:#fff;line-height:1.2;margin-top:2px;}
-.locker-handle{width:20px;height:8px;background:rgba(255,255,255,0.15);border-radius:4px;margin:6px auto 0;}
+.locker-handle{width:20px;height:8px;background:rgba(255,255,255,.15);border-radius:4px;margin:6px auto 0;}
 .locker-body{padding:10px 12px;}
-.locker-progress{margin-bottom:6px;}
-.locker-bar{height:4px;background:var(--paper);border-radius:2px;overflow:hidden;}
-.locker-fill{height:4px;background:var(--orange);border-radius:2px;transition:width 0.4s;}
+.locker-bar-wrap{height:4px;background:var(--paper);border-radius:2px;overflow:hidden;margin-bottom:4px;}
+.locker-fill{height:4px;background:var(--orange);border-radius:2px;transition:width .4s;}
 .locker.all-done .locker-fill{background:var(--green);}
-.locker-count{font-size:11px;font-weight:700;color:var(--muted);margin-top:4px;font-family:'JetBrains Mono',monospace;}
+.locker-count{font-size:11px;font-weight:700;color:var(--muted);font-family:'JetBrains Mono',monospace;}
 .locker-stamps{display:flex;flex-wrap:wrap;gap:3px;margin-top:6px;}
 .mini-stamp{width:10px;height:10px;border-radius:2px;background:var(--paper);}
 .mini-stamp.done{background:var(--orange);}
 .locker.all-done .mini-stamp.done{background:var(--green);}
-.locker-new-badge{position:absolute;top:6px;right:6px;background:var(--orange);color:#fff;font-size:8px;font-weight:800;padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;}
-.overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(15,15,30,0.7);align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
+.done-badge{position:absolute;top:6px;right:6px;background:var(--orange);color:#fff;font-size:8px;font-weight:800;padding:1px 5px;border-radius:3px;font-family:'JetBrains Mono',monospace;}
+.overlay{display:none;position:fixed;inset:0;z-index:100;background:rgba(15,15,30,.7);align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px);}
 .overlay.open{display:flex;}
-.pin-box{background:#fff;border-radius:16px;padding:28px 24px;width:100%;max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-.pin-locker-name{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--navy);letter-spacing:2px;margin-bottom:4px;}
+.pin-box,.setup-box{background:#fff;border-radius:16px;padding:28px 24px;width:100%;max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.pin-title{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--navy);letter-spacing:2px;margin-bottom:4px;}
 .pin-sub{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:20px;}
 .pin-dots{display:flex;justify-content:center;gap:12px;margin-bottom:20px;}
-.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);transition:all 0.15s;}
+.pin-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);transition:all .15s;}
 .pin-dot.filled{background:var(--navy);border-color:var(--navy);}
 .pin-dot.error{background:var(--red);border-color:var(--red);}
 .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
-.pin-key{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;transition:all 0.1s;font-family:'Bebas Neue',sans-serif;letter-spacing:1px;}
+.pin-key{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:14px;font-size:20px;font-weight:800;cursor:pointer;transition:all .1s;font-family:'Bebas Neue',sans-serif;}
 .pin-key:hover{background:var(--navy);color:#fff;border-color:var(--navy);}
-.pin-key:active{transform:scale(0.94);}
+.pin-key:active{transform:scale(.94);}
 .pin-key.del{font-size:14px;color:var(--muted);}
 .pin-key.del:hover{background:var(--red);color:#fff;border-color:var(--red);}
 .pin-hint{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;}
-.pin-hint span{color:var(--orange);font-weight:700;cursor:pointer;}
+.pin-reset{color:var(--orange);font-weight:700;cursor:pointer;}
 .pin-error{font-size:12px;color:var(--red);font-weight:700;margin-bottom:10px;min-height:18px;}
 .pin-cancel{margin-top:12px;background:transparent;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Nunito Sans',sans-serif;font-weight:600;}
-.panel-box{background:#fff;border-radius:16px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-.panel-header{background:var(--navy);padding:18px 20px;border-radius:16px 16px 0 0;position:sticky;top:0;z-index:2;}
-.panel-header-name{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:2px;}
-.panel-header-sub{font-size:11px;color:rgba(255,255,255,0.5);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
-.panel-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.panel-box{background:#fff;border-radius:16px;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.panel-hdr{background:var(--navy);padding:18px 20px;border-radius:16px 16px 0 0;position:sticky;top:0;z-index:2;}
+.panel-name{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#fff;letter-spacing:2px;}
+.panel-sub{font-size:11px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.panel-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.15);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;}
 .panel-body{padding:20px;}
-.punch-card{border:2px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;transition:all 0.2s;}
-.punch-card.is-done{border-color:var(--green);}
-.punch-card.is-closed{opacity:0.6;}
+.punch-card{border:2px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+.punch-card.done{border-color:var(--green);}
+.punch-card.closed{opacity:.6;}
 .punch-top{display:flex;align-items:center;gap:12px;padding:14px 16px;}
-.punch-hole{width:36px;height:36px;border-radius:50%;border:3px dashed var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;}
-.punch-card.is-done .punch-hole{border-color:var(--green);background:#f0fdf4;}
-.punch-stamp-icon{font-size:18px;opacity:0;transform:scale(0);transition:all 0.3s;}
-.punch-card.is-done .punch-stamp-icon{opacity:1;transform:scale(1);}
+.punch-hole{width:36px;height:36px;border-radius:50%;border:3px dashed var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.punch-card.done .punch-hole{border-color:var(--green);background:#f0fdf4;}
+.punch-icon{font-size:18px;opacity:0;transform:scale(0);transition:all .3s;}
+.punch-card.done .punch-icon{opacity:1;transform:scale(1);}
 .punch-info{flex:1;}
-.punch-title{font-size:14px;font-weight:800;margin-bottom:3px;color:var(--ink);}
+.punch-title{font-size:14px;font-weight:800;margin-bottom:3px;}
 .punch-due{font-size:11px;color:var(--muted);font-weight:600;font-family:'JetBrains Mono',monospace;}
 .punch-badges{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap;}
 .pbadge{font-size:9px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:3px;text-transform:uppercase;}
 .pbadge-open{background:#dcfce7;color:var(--green);}
 .pbadge-closed{background:#fee2e2;color:var(--red);}
 .pbadge-time{background:#fff7ed;color:var(--orange);}
-.punch-btn{padding:8px 16px;border-radius:7px;border:none;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:13px;cursor:pointer;transition:all 0.15s;white-space:nowrap;}
-.punch-btn.can-punch{background:var(--orange);color:#fff;box-shadow:0 2px 8px rgba(232,82,26,0.3);}
-.punch-btn.can-punch:hover{background:var(--orange-l);}
-.punch-btn.is-punched{background:#dcfce7;color:var(--green);cursor:default;}
-.punch-btn.is-over{background:var(--paper);color:var(--muted);cursor:default;}
+.punch-btn{padding:8px 16px;border-radius:7px;border:none;font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:13px;cursor:pointer;white-space:nowrap;}
+.punch-btn.can{background:var(--orange);color:#fff;}
+.punch-btn.stamped{background:#dcfce7;color:var(--green);cursor:default;}
+.punch-btn.over{background:var(--paper);color:var(--muted);cursor:default;}
 .punch-divider{height:1px;background:var(--paper);margin:0 16px;}
 .punch-footer{padding:10px 16px;background:var(--paper);display:flex;align-items:center;justify-content:space-between;cursor:pointer;}
 .punch-footer:hover{background:#e8e2d6;}
@@ -108,130 +105,123 @@ header{background:var(--navy);padding:0 20px;box-shadow:0 3px 20px rgba(45,50,12
 .pmtag-done{background:#dcfce7;color:var(--green);}
 .pmtag-miss{background:#fee2e2;color:var(--red);}
 .pmtag-pend{background:var(--paper);color:var(--muted);}
-@keyframes stampIn{0%{transform:scale(2) rotate(-15deg);opacity:0;}60%{transform:scale(0.9) rotate(3deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
-.stamp-anim{animation:stampIn 0.35s ease forwards;}
-.admin-box{background:#fff;border-radius:16px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-.admin-header{background:var(--navy-d);padding:18px 20px;border-radius:16px 16px 0 0;position:sticky;top:0;}
-.admin-header-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;}
-.admin-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+@keyframes stampIn{0%{transform:scale(2) rotate(-15deg);opacity:0;}60%{transform:scale(.9) rotate(3deg);}100%{transform:scale(1) rotate(0);opacity:1;}}
+.stamp-anim{animation:stampIn .35s ease forwards;}
+.admin-box{background:#fff;border-radius:16px;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.admin-hdr{background:var(--navy-d);padding:18px 20px;border-radius:16px 16px 0 0;position:sticky;top:0;}
+.admin-hdr-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#fff;letter-spacing:2px;}
+.admin-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.1);border:none;color:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;}
 .admin-body{padding:20px;}
 .admin-section{margin-bottom:24px;}
 .admin-section-title{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-family:'JetBrains Mono',monospace;}
 input,select{background:var(--paper);border:1.5px solid var(--border);color:var(--ink);border-radius:8px;padding:9px 13px;font-family:'Nunito Sans',sans-serif;font-size:14px;outline:none;width:100%;}
 input:focus,select:focus{border-color:var(--navy);background:#fff;}
 input::placeholder{color:var(--muted);}
-.btn{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:13px;padding:9px 18px;border-radius:7px;border:none;cursor:pointer;transition:all 0.15s;}
+.btn{font-family:'Nunito Sans',sans-serif;font-weight:800;font-size:13px;padding:9px 18px;border-radius:7px;border:none;cursor:pointer;}
 .btn-navy{background:var(--navy);color:#fff;}
-.btn-navy:hover{background:var(--navy-l);}
 .btn-orange{background:var(--orange);color:#fff;}
-.btn-orange:hover{opacity:0.88;}
 .btn-red{background:#fee2e2;color:var(--red);}
-.btn-red:hover{background:#fecaca;}
 .btn-green{background:#dcfce7;color:var(--green);}
 .admin-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--paper);}
 .admin-row:last-child{border:none;}
-.export-box{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:500px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
+.export-box{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:500px;max-height:85vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3);}
 .export-box textarea{width:100%;min-height:200px;font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--paper);border:1.5px solid var(--border);border-radius:8px;padding:12px;resize:none;color:var(--ink);outline:none;line-height:1.7;}
-#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;padding:11px 22px;border-radius:30px;font-size:13px;font-weight:700;color:#fff;display:none;white-space:nowrap;animation:toastPop 0.2s ease;box-shadow:0 4px 20px rgba(0,0,0,0.2);}
-@keyframes toastPop{from{opacity:0;transform:translateX(-50%) translateY(10px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
-.setup-box{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
-.setup-title{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--navy);letter-spacing:2px;margin-bottom:6px;}
-.setup-sub{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:18px;line-height:1.5;}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:999;padding:11px 22px;border-radius:30px;font-size:13px;font-weight:700;color:#fff;display:none;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.2);}
 @media(max-width:480px){.locker-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}.header-right{gap:6px;}.admin-btn,.export-btn{font-size:11px;padding:6px 10px;}}
 </style>
 </head>
 <body>
 <div id="toast"></div>
-<div class="overlay" id="pin-overlay"><div id="pin-content"></div></div>
-<div class="overlay" id="panel-overlay"><div class="panel-box" id="panel-content"></div></div>
-<div class="overlay" id="admin-overlay">
-<div class="admin-box">
-<div class="admin-header" style="position:relative;">
-<div class="admin-header-title">&#9881; ADMIN PANEL</div>
-<button class="admin-close" onclick="closeAdmin()">&#10005;</button>
+<div class="overlay" id="ov-pin"><div id="pin-wrap"></div></div>
+<div class="overlay" id="ov-panel"><div class="panel-box" id="panel-wrap"></div></div>
+<div class="overlay" id="ov-admin">
+  <div class="admin-box">
+    <div class="admin-hdr" style="position:relative">
+      <div class="admin-hdr-title">&#9881; ADMIN PANEL</div>
+      <button class="admin-close" id="btn-close-admin">&#10005;</button>
+    </div>
+    <div class="admin-body">
+      <div class="admin-section">
+        <div class="admin-section-title">Add Assignment</div>
+        <input type="text" id="a-title" placeholder="Assignment title..." style="margin-bottom:8px"/>
+        <input type="datetime-local" id="a-deadline" style="margin-bottom:10px"/>
+        <button class="btn btn-orange" id="btn-add-assign">+ Add Assignment</button>
+      </div>
+      <div class="admin-section"><div class="admin-section-title">All Assignments</div><div id="admin-assign-list"></div></div>
+      <div class="admin-section">
+        <div class="admin-section-title">Add Member</div>
+        <div style="display:flex;gap:8px">
+          <input type="text" id="a-member" placeholder="Full name..." style="flex:1;width:auto"/>
+          <button class="btn btn-navy" id="btn-add-member" style="width:auto;white-space:nowrap">+ Add</button>
+        </div>
+      </div>
+      <div class="admin-section"><div class="admin-section-title">Members</div><div id="admin-member-list"></div></div>
+    </div>
+  </div>
 </div>
-<div class="admin-body">
-<div class="admin-section">
-<div class="admin-section-title">Add Assignment</div>
-<input type="text" id="a-title" placeholder="Assignment title..." style="margin-bottom:8px;"/>
-<input type="datetime-local" id="a-deadline" style="margin-bottom:10px;"/>
-<button class="btn btn-orange" onclick="addAssignment()">+ Add Assignment</button>
-</div>
-<div class="admin-section"><div class="admin-section-title">All Assignments</div><div id="admin-assign-list"></div></div>
-<div class="admin-section">
-<div class="admin-section-title">Add Member</div>
-<div style="display:flex;gap:8px;">
-<input type="text" id="a-member" placeholder="Full name..." onkeydown="if(event.key===&quot;Enter&quot;)addMember()" style="flex:1;width:auto;"/>
-<button class="btn btn-navy" onclick="addMember()" style="width:auto;white-space:nowrap;">+ Add</button>
-</div>
-</div>
-<div class="admin-section"><div class="admin-section-title">Members</div><div id="admin-member-list"></div></div>
-</div>
-</div>
-</div>
-<div class="overlay" id="export-overlay">
-<div class="export-box">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
-<div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--navy);letter-spacing:2px;">EXPORT REPORT</div>
-<button onclick="closeExport()" style="background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--muted);">&#10005;</button>
-</div>
-<div style="margin-bottom:10px;"><select id="export-select" onchange="updateExportText()" style="margin-bottom:0;"></select></div>
-<textarea id="export-text" readonly></textarea>
-<div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-<button class="btn btn-orange" onclick="copyExport()">Copy</button>
-<button class="btn btn-green" onclick="downloadExport()">Download</button>
-<button class="btn" onclick="closeExport()" style="background:var(--paper);color:var(--muted);">Close</button>
-</div>
-</div>
+<div class="overlay" id="ov-export">
+  <div class="export-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--navy);letter-spacing:2px">EXPORT REPORT</div>
+      <button id="btn-close-export" style="background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--muted)">&#10005;</button>
+    </div>
+    <div style="margin-bottom:10px"><select id="export-select" style="margin-bottom:0"></select></div>
+    <textarea id="export-text" readonly></textarea>
+    <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+      <button class="btn btn-orange" id="btn-copy-export">Copy</button>
+      <button class="btn btn-green" id="btn-dl-export">Download</button>
+      <button class="btn" id="btn-close-export2" style="background:var(--paper);color:var(--muted)">Close</button>
+    </div>
+  </div>
 </div>
 <header>
-<div class="header-inner">
-<div class="brand" id="scg-logo" style="cursor:default;user-select:none;">
-<svg width="44" height="44" viewBox="0 0 100 100" fill="none" style="flex-shrink:0;pointer-events:none;">
-<circle cx="50" cy="56" r="21" stroke="#e8521a" stroke-width="7" fill="none"/>
-<line x1="50" y1="35" x2="50" y2="27" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
-<line x1="50" y1="77" x2="50" y2="85" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
-<line x1="29" y1="56" x2="21" y2="56" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
-<line x1="71" y1="56" x2="79" y2="56" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
-<line x1="35" y1="41" x2="29" y2="35" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
-<line x1="65" y1="71" x2="71" y2="77" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
-<line x1="65" y1="41" x2="71" y2="35" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
-<line x1="35" y1="71" x2="29" y2="77" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
-<path d="M26 52 Q26 28 50 26 Q74 28 74 52" fill="#2d3280"/>
-<rect x="23" y="50" width="54" height="9" rx="4.5" fill="#2d3280"/>
-<path d="M30 50 Q50 43 70 50" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
-</svg>
-<div>
-<div class="brand-text-top"><span>Safety</span><span>Campaign</span></div>
-<div class="brand-sub-line">Ghana</div>
-<div class="brand-caption">Mentorship &middot; Assignment Locker Room</div>
-</div>
-</div>
-<div class="header-right">
-<button class="admin-btn" id="admin-btn" onclick="openAdmin()" style="display:none;">Admin</button>
-<button class="export-btn" onclick="openExport()">Export</button>
-</div>
-</div>
+  <div class="header-inner">
+    <div class="brand" id="scg-logo" style="cursor:default;user-select:none">
+      <svg width="44" height="44" viewBox="0 0 100 100" fill="none" style="flex-shrink:0;pointer-events:none">
+        <circle cx="50" cy="56" r="21" stroke="#e8521a" stroke-width="7" fill="none"/>
+        <line x1="50" y1="35" x2="50" y2="27" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="50" y1="77" x2="50" y2="85" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="29" y1="56" x2="21" y2="56" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="71" y1="56" x2="79" y2="56" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="35" y1="41" x2="29" y2="35" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="65" y1="71" x2="71" y2="77" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="65" y1="41" x2="71" y2="35" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <line x1="35" y1="71" x2="29" y2="77" stroke="#e8521a" stroke-width="5" stroke-linecap="round"/>
+        <path d="M26 52 Q26 28 50 26 Q74 28 74 52" fill="#2d3280"/>
+        <rect x="23" y="50" width="54" height="9" rx="4.5" fill="#2d3280"/>
+        <path d="M30 50 Q50 43 70 50" stroke="rgba(255,255,255,0.3)" stroke-width="2" fill="none"/>
+      </svg>
+      <div>
+        <div class="brand-text-top"><span>Safety</span><span>Campaign</span></div>
+        <div class="brand-sub-line">Ghana</div>
+        <div class="brand-caption">Mentorship &middot; Assignment Locker Room</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="admin-btn" id="admin-btn" style="display:none">&#9881; Admin</button>
+      <button class="export-btn" id="btn-open-export">&#128228; Export</button>
+    </div>
+  </div>
 </header>
 <div class="accent-bar"></div>
 <div class="scoreboard"><div class="scoreboard-inner">
-<div class="score-item"><div class="val" id="sc-members">0</div><div class="lbl">Members</div></div>
-<div class="score-divider"></div>
-<div class="score-item"><div class="val" id="sc-assignments">0</div><div class="lbl">Assignments</div></div>
-<div class="score-divider"></div>
-<div class="score-item"><div class="val" id="sc-checkins">0</div><div class="lbl">Total Check-ins</div></div>
-<div class="score-divider"></div>
-<div class="score-item"><div class="val" id="sc-complete">0</div><div class="lbl">All Done</div></div>
+  <div class="score-item"><div class="val" id="sc-members">0</div><div class="lbl">Members</div></div>
+  <div class="score-divider"></div>
+  <div class="score-item"><div class="val" id="sc-assignments">0</div><div class="lbl">Assignments</div></div>
+  <div class="score-divider"></div>
+  <div class="score-item"><div class="val" id="sc-checkins">0</div><div class="lbl">Total Check-ins</div></div>
+  <div class="score-divider"></div>
+  <div class="score-item"><div class="val" id="sc-complete">0</div><div class="lbl">All Done</div></div>
 </div></div>
 <div class="room-wrap">
-<div class="room-title">Tap your locker &middot; Enter PIN &middot; Stamp your assignments</div>
-<div class="locker-grid" id="locker-grid"></div>
+  <div class="room-title">Tap your locker &middot; Enter PIN &middot; Stamp your assignments</div>
+  <div class="locker-grid" id="locker-grid"></div>
 </div>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-const firebaseConfig = {
+const FB = {
   apiKey: "AIzaSyDYuommjN2ggBg4Oks9gk_TDwWRPP0UFNc",
   authDomain: "sgc-checkin-2d966.firebaseapp.com",
   databaseURL: "https://sgc-checkin-2d966-default-rtdb.europe-west1.firebasedatabase.app",
@@ -240,11 +230,11 @@ const firebaseConfig = {
   messagingSenderId: "88375703988",
   appId: "1:88375703988:web:fe75ea62c465262fbbdae1"
 };
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(FB);
 const db = getDatabase(app);
 const dbRef = ref(db, "scg_lockers_v1");
 
-const DEFAULT_STATE = {
+const DEFAULTS = {
   members:[
     {name:"Mathias",pin:"1234"},{name:"Ama",pin:"1111"},{name:"Kofi",pin:"2222"},
     {name:"Akosua",pin:"3333"},{name:"Kwame",pin:"4444"},{name:"Abena",pin:"5555"},
@@ -256,427 +246,516 @@ const DEFAULT_STATE = {
   ]
 };
 
-let state={members:[],assignments:[]};
-let pinState={member:null,entered:"",mode:"verify",setupStep:0,newPin:""};
-let panelMember=null, expandedAssign=null;
+let state = {members:[],assignments:[]};
+let panelMember = null;
+let expandedId = null;
+let pinMember = null;
+let pinEntered = "";
+let pinMode = "verify";
+let pinStep = 0;
+let pinNew = "";
+let adminUnlocked = false;
+let adminEntered = "";
+let toastTimer;
 
-function save(){set(dbRef,state);}
+// ── FIREBASE ────────────────────────────────────────
+function save() { set(dbRef, state); }
 
-function normalizeState(data){
-  state.members=Array.isArray(data.members)?data.members:Object.values(data.members||{});
-  state.assignments=Array.isArray(data.assignments)?data.assignments:Object.values(data.assignments||{});
-  state.assignments=state.assignments.map(function(a){return Object.assign({},a,{checkins:Array.isArray(a.checkins)?a.checkins:Object.values(a.checkins||{})});});
+function normalize(data) {
+  state.members = Array.isArray(data.members) ? data.members : Object.values(data.members||{});
+  state.assignments = Array.isArray(data.assignments) ? data.assignments : Object.values(data.assignments||{});
+  state.assignments = state.assignments.map(function(a) {
+    return Object.assign({}, a, {
+      checkins: Array.isArray(a.checkins) ? a.checkins : Object.values(a.checkins||{})
+    });
+  });
 }
 
-onValue(dbRef,function(snapshot){
-  var data=snapshot.val();
-  if(!data){state=JSON.parse(JSON.stringify(DEFAULT_STATE));save();}
-  else{normalizeState(data);}
+onValue(dbRef, function(snap) {
+  var data = snap.val();
+  if (!data) { state = JSON.parse(JSON.stringify(DEFAULTS)); save(); }
+  else { normalize(data); }
   renderLockers();
-  if(panelMember&&document.getElementById("panel-overlay").classList.contains("open"))renderPanel();
-  if(document.getElementById("admin-overlay").classList.contains("open"))renderAdmin();
+  if (panelMember && document.getElementById("ov-panel").classList.contains("open")) renderPanel();
+  if (document.getElementById("ov-admin").classList.contains("open")) renderAdmin();
 });
 
-function fmt(iso){return new Date(iso).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});}
-function isClosed(a){
-  if(typeof a==="string")return new Date()>new Date(a);
-  if(a.forceClosed===true)return true;
-  if(a.forceOpen===true)return false;
-  return new Date()>new Date(a.deadline);
+// ── HELPERS ─────────────────────────────────────────
+function esc(s) { var d=document.createElement("div"); d.textContent=String(s); return d.innerHTML; }
+function fmt(iso) { return new Date(iso).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}); }
+function isClosed(a) {
+  if (a.forceClosed===true) return true;
+  if (a.forceOpen===true) return false;
+  return new Date() > new Date(a.deadline);
 }
-function timeLeft(dl){var d=new Date(dl)-new Date();if(d<=0)return null;var h=Math.floor(d/3600000);return h<24?h+"h left":Math.floor(h/24)+"d left";}
-function isUrgent(dl){var d=new Date(dl)-new Date();return d>0&&d<=12*3600000;}
-function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function timeLeft(dl) {
+  var d = new Date(dl)-new Date(); if (d<=0) return null;
+  var h = Math.floor(d/3600000); return h<24 ? h+"h left" : Math.floor(h/24)+"d left";
+}
+function isUrgent(dl) { var d=new Date(dl)-new Date(); return d>0 && d<=12*3600000; }
+function toast(msg, type) {
+  var el = document.getElementById("toast");
+  el.textContent = msg;
+  el.style.background = type==="error" ? "#dc2626" : type==="info" ? "#2d3280" : "#16a34a";
+  el.style.display = "block";
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ el.style.display="none"; }, 2800);
+}
+function el(tag, attrs, txt) {
+  var e = document.createElement(tag);
+  if (attrs) Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); });
+  if (txt !== undefined) e.textContent = txt;
+  return e;
+}
+function div(cls) { var d=document.createElement("div"); if(cls) d.className=cls; return d; }
+function btn(cls, txt, fn) { var b=document.createElement("button"); b.className=cls; b.textContent=txt; b.onclick=fn; return b; }
 
-var toastT;
-function toast(msg,type){
-  type=type||"success";
-  var el=document.getElementById("toast");
-  el.textContent=msg;
-  el.style.background=type==="error"?"#dc2626":type==="info"?"#2d3280":"#16a34a";
-  el.style.display="block";
-  clearTimeout(toastT);
-  toastT=setTimeout(function(){el.style.display="none";},2800);
+// ── SCOREBOARD ──────────────────────────────────────
+function renderScoreboard() {
+  document.getElementById("sc-members").textContent = state.members.length;
+  document.getElementById("sc-assignments").textContent = state.assignments.length;
+  document.getElementById("sc-checkins").textContent = state.assignments.reduce(function(s,a){ return s+a.checkins.length; },0);
+  var all = state.members.filter(function(m){ return state.assignments.length>0 && state.assignments.every(function(a){ return a.checkins.indexOf(m.name)>-1; }); }).length;
+  document.getElementById("sc-complete").textContent = all;
 }
 
-function renderScoreboard(){
-  document.getElementById("sc-members").textContent=state.members.length;
-  document.getElementById("sc-assignments").textContent=state.assignments.length;
-  document.getElementById("sc-checkins").textContent=state.assignments.reduce(function(s,a){return s+a.checkins.length;},0);
-  var allDone=state.members.filter(function(m){return state.assignments.length>0&&state.assignments.every(function(a){return a.checkins.includes(m.name);});}).length;
-  document.getElementById("sc-complete").textContent=allDone;
-}
-
-function renderLockers(){
+// ── LOCKERS ─────────────────────────────────────────
+function renderLockers() {
   renderScoreboard();
-  var grid=document.getElementById("locker-grid");
-  grid.innerHTML=state.members.map(function(m,i){
-    var done=state.assignments.filter(function(a){return a.checkins.includes(m.name);}).length;
-    var total=state.assignments.length;
-    var pct=total?Math.round(done/total*100):0;
-    var allDone=total>0&&done===total;
-    var hasActivity=done>0;
-    var stamps=state.assignments.map(function(a){return "<div class=\"mini-stamp "+(a.checkins.includes(m.name)?"done":"")+"\">&nbsp;</div>";}).join("");
-    return "<div class=\"locker "+(allDone?"all-done":hasActivity?"has-activity":"")+"\" onclick=\"openLocker("+JSON.stringify(m.name)+")\">"
-      +"<div class=\"locker-top\"><div class=\"locker-number\">#"+String(i+1).padStart(2,"0")+"</div>"
-      +"<div class=\"locker-name\">"+esc(m.name)+"</div><div class=\"locker-handle\"></div>"
-      +(allDone?"<div class=\"locker-new-badge\">ALL DONE</div>":"")
-      +"</div><div class=\"locker-body\"><div class=\"locker-progress\">"
-      +"<div class=\"locker-bar\"><div class=\"locker-fill\" style=\"width:"+pct+"%\"></div></div>"
-      +"<div class=\"locker-count\">"+done+"/"+total+" DONE</div></div>"
-      +"<div class=\"locker-stamps\">"+stamps+"</div></div></div>";
-  }).join("");
-}
+  var grid = document.getElementById("locker-grid");
+  grid.innerHTML = "";
+  state.members.forEach(function(m, i) {
+    var done = state.assignments.filter(function(a){ return a.checkins.indexOf(m.name)>-1; }).length;
+    var total = state.assignments.length;
+    var pct = total ? Math.round(done/total*100) : 0;
+    var allDone = total>0 && done===total;
+    var hasAct = done>0;
 
-window.openLocker=function(name){
-  var m=state.members.find(function(x){return x.name===name;});
-  if(!m)return;
-  pinState={member:m,entered:"",mode:m.pin?"verify":"setup",setupStep:0,newPin:""};
-  renderPin();
-  document.getElementById("pin-overlay").classList.add("open");
-};
+    var card = div("locker" + (allDone?" all-done":hasAct?" has-activity":""));
+    card.onclick = function(){ openLocker(m.name); };
 
-function makeDots(entered){
-  return [0,1,2,3].map(function(i){return "<div class=\"pin-dot "+(entered.length>i?"filled":"")+"\"></div>";}).join("");
-}
-function makePad(handler){
-  return [1,2,3,4,5,6,7,8,9,"",0,"DEL"].map(function(k,idx){
-    if(k==="")return "<div></div>";
-    var isBackspace=idx===11;
-    return "<button class=\"pin-key "+(isBackspace?"del":"")+"\" onclick=\""+handler+"("+(isBackspace?"&quot;DEL&quot;":k)+")\">"+(isBackspace?"&#8592;":k)+"</button>";
-  }).join("");
-}
+    var top = div("locker-top");
+    var num = div("locker-number"); num.textContent = "#"+String(i+1).padStart(2,"0"); top.appendChild(num);
+    var nm = div("locker-name"); nm.textContent = m.name; top.appendChild(nm);
+    var handle = div("locker-handle"); top.appendChild(handle);
+    if (allDone) { var badge = div("done-badge"); badge.textContent="ALL DONE"; top.appendChild(badge); }
+    card.appendChild(top);
 
-function renderPin(){
-  var m=pinState.member;
-  var c=document.getElementById("pin-content");
-  var dots=makeDots(pinState.entered);
-  var pad=makePad("pinPress");
-  if(pinState.mode==="setup"){
-    var step=pinState.setupStep;
-    c.innerHTML="<div class=\"setup-box\"><div class=\"setup-title\">"+esc(m.name)+"</div>"
-      +"<div class=\"setup-sub\">"+(step===0?"Set a 4-digit PIN for your locker.":"Confirm your PIN")+"</div>"
-      +"<div class=\"pin-dots\" id=\"pin-dots\">"+dots+"</div>"
-      +"<div class=\"pin-error\" id=\"pin-error\"></div>"
-      +"<div class=\"pin-pad\">"+pad+"</div>"
-      +"<button class=\"pin-cancel\" onclick=\"closePin()\">Cancel</button></div>";
-  }else{
-    c.innerHTML="<div class=\"pin-box\"><div class=\"pin-locker-name\">"+esc(m.name)+"</div>"
-      +"<div class=\"pin-sub\">Enter your 4-digit PIN</div>"
-      +"<div class=\"pin-dots\" id=\"pin-dots\">"+dots+"</div>"
-      +"<div class=\"pin-error\" id=\"pin-error\"></div>"
-      +"<div class=\"pin-pad\">"+pad+"</div>"
-      +"<div class=\"pin-hint\">Forgot your PIN? <span onclick=\"resetPin("+JSON.stringify(m.name)+")\" style=\"color:var(--orange);font-weight:700;cursor:pointer;\">Reset it</span></div>"
-      +"<button class=\"pin-cancel\" onclick=\"closePin()\">Cancel</button></div>";
-  }
-}
-
-window.pinPress=function(key){
-  if(key==="DEL"){pinState.entered=pinState.entered.slice(0,-1);renderPin();return;}
-  if(pinState.entered.length>=4)return;
-  pinState.entered+=String(key);
-  renderPin();
-  if(pinState.entered.length===4)setTimeout(submitPin,120);
-};
-
-function submitPin(){
-  var m=pinState.member;
-  if(pinState.mode==="setup"){
-    if(pinState.setupStep===0){
-      pinState.newPin=pinState.entered;pinState.entered="";pinState.setupStep=1;renderPin();
-    }else{
-      if(pinState.entered===pinState.newPin){
-        m.pin=pinState.newPin;save();closePin();toast("PIN set! Opening your locker...");
-        setTimeout(function(){openPanel(m.name);},400);
-      }else{
-        showPinError("PINs do not match. Try again.");
-        pinState.entered="";pinState.setupStep=0;pinState.newPin="";
-        setTimeout(renderPin,600);
-      }
-    }
-  }else{
-    if(pinState.entered===m.pin){closePin();openPanel(m.name);}
-    else{showPinError("Wrong PIN. Try again.");pinState.entered="";setTimeout(renderPin,600);}
-  }
-}
-
-function showPinError(msg){
-  var dots=document.querySelectorAll(".pin-dot");
-  dots.forEach(function(d){d.classList.add("error");d.classList.remove("filled");});
-  var e=document.getElementById("pin-error");if(e)e.textContent=msg;
-  setTimeout(function(){dots.forEach(function(d){d.classList.remove("error");});},600);
-}
-
-window.resetPin=function(name){
-  var m=state.members.find(function(x){return x.name===name;});if(!m)return;
-  m.pin="";save();
-  pinState={member:m,entered:"",mode:"setup",setupStep:0,newPin:""};renderPin();
-};
-
-window.closePin=function(){document.getElementById("pin-overlay").classList.remove("open");};
-
-function openPanel(name){panelMember=name;renderPanel();document.getElementById("panel-overlay").classList.add("open");}
-
-function renderPanel(){
-  var name=panelMember;
-  var doneCount=state.assignments.filter(function(a){return a.checkins.includes(name);}).length;
-  var total=state.assignments.length;
-  var html="<div class=\"panel-header\" style=\"position:relative;\">"
-    +"<button class=\"panel-close\" onclick=\"closePanel()\">&#10005;</button>"
-    +"<div class=\"panel-header-name\">&#128194; "+esc(name)+"&rsquo;s Locker</div>"
-    +"<div class=\"panel-header-sub\">"+doneCount+"/"+total+" Assignments Stamped</div>"
-    +"</div><div class=\"panel-body\">";
-  if(!state.assignments.length){
-    html+="<div style=\"text-align:center;padding:30px;color:var(--muted);\">No assignments yet.<br/>Ask your admin to add some.</div>";
-  }else{
-    html+=state.assignments.map(function(a){
-      var closed=isClosed(a);
-      var done=a.checkins.includes(name);
-      var tl=timeLeft(a.deadline);
-      var pct=state.members.length?Math.round(a.checkins.length/state.members.length*100):0;
-      var expanded=expandedAssign===a.id;
-      var memberTags="";
-      if(expanded){
-        memberTags="<div class=\"punch-members\">"
-          +state.members.map(function(m){
-            var c=a.checkins.includes(m.name);
-            var late=closed&&!c;
-            return "<span class=\"pmtag "+(late?"pmtag-miss":c?"pmtag-done":"pmtag-pend")+"\">"+
-              (late?"&#10007;":c?"&#10003;":"&#9675;")+" "+esc(m.name)+"</span>";
-          }).join("")+"</div>";
-      }
-      return "<div class=\"punch-card "+(done?"is-done":"")+(closed?" is-closed":"")+"\"><div class=\"punch-top\">"
-        +"<div class=\"punch-hole\"><span class=\"punch-stamp-icon "+(done?"stamp-anim":"")+"\">&#9989;</span></div>"
-        +"<div class=\"punch-info\"><div class=\"punch-title\">"+esc(a.title)+"</div>"
-        +"<div class=\"punch-due\" style=\"color:"+(isUrgent(a.deadline)?"var(--red)":"var(--muted)")+";\">"
-        +(isUrgent(a.deadline)?"&#128308; ":"")+"Deadline: "+fmt(a.deadline)+"</div>"
-        +"<div class=\"punch-badges\"><span class=\"pbadge "+(closed?"pbadge-closed":"pbadge-open")+"\">"+(closed?"Closed":"Open")+"</span>"
-        +(tl?"<span class=\"pbadge pbadge-time\">"+tl+"</span>":"")
-        +"</div></div>"
-        +"<button class=\"punch-btn "+(done?"is-punched":closed?"is-over":"can-punch")+"\" "
-        +(done||closed?"disabled ":"")+"onclick=\"stampAssignment("+a.id+")\">"
-        +(done?"Checked In &#10003;":closed?"Closed":"Check In")+"</button>"
-        +"</div><div class=\"punch-divider\"></div>"
-        +"<div class=\"punch-footer\" onclick=\"toggleExpand("+a.id+")\">"
-        +"<span class=\"punch-footer-txt\">"+a.checkins.length+"/"+state.members.length+" members stamped "+(expanded?"&#9650;":"&#9660;")+"</span>"
-        +"<span style=\"font-size:11px;font-weight:800;color:"+(pct===100?"var(--green)":"var(--orange)")+"\">"+pct+"%</span>"
-        +"</div>"+memberTags+"</div>";
-    }).join("");
-  }
-  html+="</div>";
-  document.getElementById("panel-content").innerHTML=html;
-}
-
-window.stampAssignment=function(id){
-  var name=panelMember;
-  var a=state.assignments.find(function(x){return x.id===id;});
-  if(!a)return;
-  if(isClosed(a))return toast("Deadline passed - assignment is closed.","error");
-  if(a.checkins.includes(name))return toast("Already stamped!","info");
-  a.checkins.push(name);
-  save();toast(a.title+" stamped!");renderPanel();
-};
-
-window.toggleExpand=function(id){expandedAssign=expandedAssign===id?null:id;renderPanel();};
-window.closePanel=function(){document.getElementById("panel-overlay").classList.remove("open");expandedAssign=null;};
-
-(function(){
-  var taps=[],THRESHOLD=3,WINDOW_MS=1500;
-  document.getElementById("scg-logo").addEventListener("click",function(){
-    var now=Date.now();taps.push(now);taps=taps.filter(function(t){return now-t<WINDOW_MS;});
-    if(taps.length>=THRESHOLD){
-      taps=[];
-      var btn=document.getElementById("admin-btn");
-      if(btn.style.display==="none"||btn.style.display===""){btn.style.display="inline-block";}
-      else{btn.style.display="none";}
-    }
+    var body = div("locker-body");
+    var barWrap = div("locker-bar-wrap");
+    var fill = div("locker-fill"); fill.style.width = pct+"%"; barWrap.appendChild(fill);
+    body.appendChild(barWrap);
+    var count = div("locker-count"); count.textContent = done+"/"+total+" DONE"; body.appendChild(count);
+    var stamps = div("locker-stamps");
+    state.assignments.forEach(function(a){
+      var s = div("mini-stamp"+(a.checkins.indexOf(m.name)>-1?" done":""));
+      stamps.appendChild(s);
+    });
+    body.appendChild(stamps);
+    card.appendChild(body);
+    grid.appendChild(card);
   });
-})();
-
-var ADMIN_PIN="0000";
-var adminUnlocked=false;
-var adminPinEntered="";
-
-window.openAdmin=function(){
-  if(adminUnlocked){renderAdmin();document.getElementById("admin-overlay").classList.add("open");return;}
-  var pad=makePad("adminPinPress");
-  document.getElementById("pin-content").innerHTML=
-    "<div class=\"pin-box\"><div class=\"pin-locker-name\" style=\"color:var(--orange);\">ADMIN</div>"
-    +"<div class=\"pin-sub\">Enter Admin PIN to continue</div>"
-    +"<div class=\"pin-dots\" id=\"pin-dots\">"+makeDots("")+"</div>"
-    +"<div class=\"pin-error\" id=\"pin-error\"></div>"
-    +"<div class=\"pin-pad\">"+pad+"</div>"
-    +"<div class=\"pin-hint\">Default PIN: 0000</div>"
-    +"<button class=\"pin-cancel\" onclick=\"closePin()\">Cancel</button></div>";
-  adminPinEntered="";
-  document.getElementById("pin-overlay").classList.add("open");
-};
-
-window.adminPinPress=function(key){
-  if(key==="DEL"){adminPinEntered=adminPinEntered.slice(0,-1);updateAdminDots();return;}
-  if(adminPinEntered.length>=4)return;
-  adminPinEntered+=String(key);updateAdminDots();
-  if(adminPinEntered.length===4)setTimeout(checkAdminPin,120);
-};
-
-function updateAdminDots(){
-  var dots=document.querySelectorAll(".pin-dot");
-  dots.forEach(function(d,i){d.classList.toggle("filled",i<adminPinEntered.length);});
 }
 
-function checkAdminPin(){
-  if(adminPinEntered===ADMIN_PIN){
-    adminUnlocked=true;closePin();renderAdmin();document.getElementById("admin-overlay").classList.add("open");
-  }else{
-    var dots=document.querySelectorAll(".pin-dot");
-    dots.forEach(function(d){d.classList.add("error");d.classList.remove("filled");});
-    var e=document.getElementById("pin-error");if(e)e.textContent="Wrong PIN. Try again.";
-    adminPinEntered="";
-    setTimeout(function(){dots.forEach(function(d){d.classList.remove("error");});updateAdminDots();},700);
+// ── PIN SYSTEM ───────────────────────────────────────
+function makePinUI(title, sub, handler, showReset) {
+  var wrap = div("pin-box");
+  var ttl = div("pin-title"); ttl.textContent = title; wrap.appendChild(ttl);
+  var sub_ = div("pin-sub"); sub_.textContent = sub; wrap.appendChild(sub_);
+  var dots = div("pin-dots"); dots.id = "pin-dots";
+  for (var i=0;i<4;i++) { dots.appendChild(div("pin-dot")); }
+  wrap.appendChild(dots);
+  var err = div("pin-error"); err.id = "pin-error"; wrap.appendChild(err);
+  var pad = div("pin-pad");
+  [1,2,3,4,5,6,7,8,9,null,0,"DEL"].forEach(function(k) {
+    if (k===null) { pad.appendChild(div("")); return; }
+    var b = document.createElement("button");
+    b.className = "pin-key" + (k==="DEL"?" del":"");
+    b.textContent = k==="DEL" ? "⌫" : k;
+    b.onclick = function(){ handler(k); };
+    pad.appendChild(b);
+  });
+  wrap.appendChild(pad);
+  if (showReset) {
+    var hint = div("pin-hint");
+    hint.textContent = "Forgot your PIN? ";
+    var sp = document.createElement("span"); sp.className="pin-reset"; sp.textContent="Reset it";
+    sp.onclick = function(){ doResetPin(); };
+    hint.appendChild(sp);
+    wrap.appendChild(hint);
+  }
+  var cancel = document.createElement("button"); cancel.className="pin-cancel"; cancel.textContent="Cancel";
+  cancel.onclick = function(){ closeOverlay("ov-pin"); };
+  wrap.appendChild(cancel);
+  return wrap;
+}
+
+function updatePinDots(entered) {
+  var dots = document.querySelectorAll("#pin-dots .pin-dot");
+  dots.forEach(function(d,i){ d.className="pin-dot"+(i<entered.length?" filled":""); });
+}
+
+function showPinError(msg) {
+  var dots = document.querySelectorAll("#pin-dots .pin-dot");
+  dots.forEach(function(d){ d.className="pin-dot error"; });
+  var e = document.getElementById("pin-error"); if(e) e.textContent=msg;
+  setTimeout(function(){ dots.forEach(function(d){ d.className="pin-dot"; }); }, 600);
+}
+
+function openLocker(name) {
+  var m = state.members.find(function(x){ return x.name===name; });
+  if (!m) return;
+  pinMember=m; pinEntered=""; pinMode=m.pin?"verify":"setup"; pinStep=0; pinNew="";
+  renderPinBox();
+  document.getElementById("ov-pin").classList.add("open");
+}
+
+function renderPinBox() {
+  var wrap = document.getElementById("pin-wrap");
+  wrap.innerHTML = "";
+  var sub = pinMode==="setup" ? (pinStep===0 ? "Set a 4-digit PIN for your locker." : "Confirm your PIN") : "Enter your 4-digit PIN";
+  var ui = makePinUI(pinMember.name, sub, handlePinKey, pinMode==="verify");
+  wrap.appendChild(ui);
+  updatePinDots(pinEntered);
+}
+
+function handlePinKey(k) {
+  if (k==="DEL") { pinEntered=pinEntered.slice(0,-1); updatePinDots(pinEntered); return; }
+  if (pinEntered.length>=4) return;
+  pinEntered += String(k);
+  updatePinDots(pinEntered);
+  if (pinEntered.length===4) setTimeout(submitPin, 120);
+}
+
+function submitPin() {
+  if (pinMode==="setup") {
+    if (pinStep===0) {
+      pinNew=pinEntered; pinEntered=""; pinStep=1; renderPinBox();
+    } else {
+      if (pinEntered===pinNew) {
+        pinMember.pin=pinNew; save();
+        closeOverlay("ov-pin"); toast("PIN set! Opening your locker...");
+        setTimeout(function(){ openPanel(pinMember.name); }, 400);
+      } else {
+        showPinError("PINs do not match. Try again.");
+        pinEntered=""; pinStep=0; pinNew="";
+        setTimeout(renderPinBox, 600);
+      }
+    }
+  } else {
+    if (pinEntered===pinMember.pin) { closeOverlay("ov-pin"); openPanel(pinMember.name); }
+    else { showPinError("Wrong PIN. Try again."); pinEntered=""; setTimeout(renderPinBox,600); }
   }
 }
 
-window.closeAdmin=function(){document.getElementById("admin-overlay").classList.remove("open");};
-
-function renderAdmin(){
-  var aList=document.getElementById("admin-assign-list");
-  if(!state.assignments.length){aList.innerHTML="<div style=\"color:var(--muted);font-size:12px;\">No assignments yet.</div>";return;}
-  aList.innerHTML=state.assignments.map(function(a){
-    var dl=new Date(a.deadline);
-    var localDL=new Date(dl.getTime()-dl.getTimezoneOffset()*60000).toISOString().slice(0,16);
-    return "<div style=\"border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;\">"
-      +"<div class=\"admin-row\" style=\"padding:10px 12px;\"><div style=\"flex:1;\">"
-      +"<div style=\"font-weight:700;font-size:13px;\">"+esc(a.title)+"</div>"
-      +"<div style=\"font-size:11px;color:var(--muted);\">Deadline: "+fmt(a.deadline)+"</div>"
-      +"<div style=\"font-size:11px;color:var(--muted);\">"+a.checkins.length+" check-in(s)</div>"
-      +"</div><div style=\"display:flex;gap:6px;\">"
-      +"<button class=\"btn\" onclick=\"toggleEditAssign("+a.id+")\" id=\"edit-btn-"+a.id+"\" style=\"background:#eff6ff;color:#2d3280;font-size:11px;padding:5px 10px;\">Edit</button>"
-      +"<button class=\"btn\" onclick=\"toggleAssignStatus("+a.id+")\" style=\"font-size:11px;padding:5px 10px;background:"+(isClosed(a)?"#dcfce7":"#fee2e2")+";color:"+(isClosed(a)?"var(--green)":"var(--red)")+";\">"+(isClosed(a)?"Re-open":"Close")+"</button>"
-      +"<button class=\"btn btn-red\" onclick=\"deleteAssignment("+a.id+")\" style=\"font-size:11px;padding:5px 10px;\">Remove</button>"
-      +"</div></div>"
-      +"<div id=\"edit-form-"+a.id+"\" style=\"display:none;background:var(--paper);padding:12px;border-top:1px solid var(--border);\">"
-      +"<input type=\"text\" id=\"edit-title-"+a.id+"\" value=\""+esc(a.title)+"\" style=\"margin-bottom:8px;\"/>"
-      +"<input type=\"datetime-local\" id=\"edit-dl-"+a.id+"\" value=\""+localDL+"\" style=\"margin-bottom:10px;\"/>"
-      +"<div style=\"display:flex;gap:8px;\">"
-      +"<button class=\"btn btn-navy\" onclick=\"saveEditAssign("+a.id+")\" style=\"font-size:12px;\">Save</button>"
-      +"<button class=\"btn\" onclick=\"toggleEditAssign("+a.id+")\" style=\"background:var(--border);color:var(--ink);font-size:12px;\">Cancel</button>"
-      +"</div></div></div>";
-  }).join("");
-
-  var mList=document.getElementById("admin-member-list");
-  if(!state.members.length){mList.innerHTML="<div style=\"color:var(--muted);font-size:12px;\">No members yet.</div>";return;}
-  mList.innerHTML=state.members.map(function(m,i){
-    return "<div class=\"admin-row\">"
-      +"<div style=\"display:flex;align-items:center;gap:8px;flex:1;\">"
-      +"<span style=\"font-size:11px;color:var(--muted);\">"+String(i+1).padStart(2,"0")+"</span>"
-      +"<span style=\"font-weight:700;font-size:13px;\">"+esc(m.name)+"</span>"
-      +"<span style=\"font-size:10px;color:var(--muted);\">"+( m.pin?"PIN set":"No PIN")+"</span>"
-      +"</div>"
-      +"<button class=\"btn btn-red\" onclick=\"removeMember("+JSON.stringify(m.name)+")\" style=\"font-size:11px;padding:5px 10px;\">Remove</button>"
-      +"</div>";
-  }).join("");
+function doResetPin() {
+  var m = state.members.find(function(x){ return x.name===pinMember.name; });
+  if (!m) return;
+  m.pin=""; save();
+  pinMode="setup"; pinStep=0; pinNew=""; pinEntered="";
+  renderPinBox();
 }
 
-window.addAssignment=function(){
-  var title=document.getElementById("a-title").value.trim();
-  var dl=document.getElementById("a-deadline").value;
-  if(!title||!dl)return toast("Fill in title and deadline.","error");
-  state.assignments.push({id:Date.now(),title:title,deadline:new Date(dl).toISOString(),checkins:[]});
-  document.getElementById("a-title").value="";document.getElementById("a-deadline").value="";
-  save();toast("Assignment added!");renderAdmin();renderLockers();
-};
-window.deleteAssignment=function(id){
-  state.assignments=state.assignments.filter(function(a){return a.id!==id;});
-  save();toast("Assignment removed.");renderAdmin();renderLockers();
-};
-window.toggleEditAssign=function(id){
-  var form=document.getElementById("edit-form-"+id);
-  var isOpen=form.style.display!=="none";
-  form.style.display=isOpen?"none":"block";
-};
-window.saveEditAssign=function(id){
-  var titleEl=document.getElementById("edit-title-"+id);
-  var dlEl=document.getElementById("edit-dl-"+id);
-  if(!titleEl||!dlEl)return;
-  var title=titleEl.value.trim();var dl=dlEl.value;
-  if(!title||!dl)return toast("Title and deadline cannot be empty.","error");
-  var a=state.assignments.find(function(x){return x.id===id;});if(!a)return;
-  a.title=title;a.deadline=new Date(dl).toISOString();
-  save();toast("Assignment updated!");renderAdmin();renderLockers();
-  if(panelMember)renderPanel();
-};
-window.toggleAssignStatus=function(id){
-  var a=state.assignments.find(function(x){return x.id===id;});if(!a)return;
-  if(isClosed(a)){a.forceOpen=true;a.forceClosed=false;toast("Assignment re-opened!");}
-  else{a.forceClosed=true;a.forceOpen=false;toast("Assignment closed.");}
-  save();renderAdmin();renderLockers();if(panelMember)renderPanel();
-};
-window.addMember=function(){
-  var name=document.getElementById("a-member").value.trim();if(!name)return;
-  if(state.members.find(function(m){return m.name===name;}))return toast("Name already exists.","error");
-  state.members.push({name:name,pin:""});
-  document.getElementById("a-member").value="";
-  save();toast(name+" added!");renderAdmin();renderLockers();
-};
-window.removeMember=function(name){
-  state.members=state.members.filter(function(m){return m.name!==name;});
-  save();toast(name+" removed.");renderAdmin();renderLockers();
+// ── PANEL ────────────────────────────────────────────
+function openPanel(name) {
+  panelMember=name; renderPanel();
+  document.getElementById("ov-panel").classList.add("open");
+}
+
+function renderPanel() {
+  var wrap = document.getElementById("panel-wrap");
+  wrap.innerHTML="";
+  var name = panelMember;
+  var doneCount = state.assignments.filter(function(a){ return a.checkins.indexOf(name)>-1; }).length;
+  var total = state.assignments.length;
+
+  // Header
+  var hdr = div("panel-hdr"); hdr.style.position="relative";
+  var closeBtn = document.createElement("button"); closeBtn.className="panel-close"; closeBtn.textContent="✕";
+  closeBtn.onclick=function(){ closeOverlay("ov-panel"); expandedId=null; };
+  hdr.appendChild(closeBtn);
+  var nm = div("panel-name"); nm.textContent = "📂 "+name+"'s Locker"; hdr.appendChild(nm);
+  var sub = div("panel-sub"); sub.textContent = doneCount+"/"+total+" Assignments Stamped"; hdr.appendChild(sub);
+  wrap.appendChild(hdr);
+
+  var body = div("panel-body");
+  if (!state.assignments.length) {
+    var emp = div(""); emp.style.cssText="text-align:center;padding:30px;color:var(--muted)";
+    emp.textContent="No assignments yet. Ask your admin to add some.";
+    body.appendChild(emp);
+  } else {
+    state.assignments.forEach(function(a) {
+      var closed = isClosed(a);
+      var done = a.checkins.indexOf(name)>-1;
+      var tl = timeLeft(a.deadline);
+      var urgent = isUrgent(a.deadline);
+      var pct = state.members.length ? Math.round(a.checkins.length/state.members.length*100) : 0;
+      var expanded = expandedId===a.id;
+
+      var card = div("punch-card"+(done?" done":"")+(closed?" closed":""));
+
+      // Top row
+      var top = div("punch-top");
+      var hole = div("punch-hole");
+      var icon = div("punch-icon"+(done?" stamp-anim":"")); icon.textContent="✅"; hole.appendChild(icon);
+      top.appendChild(hole);
+
+      var info = div("punch-info");
+      var ptitle = div("punch-title"); ptitle.textContent=a.title; info.appendChild(ptitle);
+      var pdue = div("punch-due");
+      pdue.style.color = urgent ? "var(--red)" : "var(--muted)";
+      if (urgent) pdue.style.fontWeight="800";
+      pdue.textContent = (urgent?"🔴 ":"")+"Deadline: "+fmt(a.deadline);
+      info.appendChild(pdue);
+      var badges = div("punch-badges");
+      var statusBadge = div("pbadge "+(closed?"pbadge-closed":"pbadge-open")); statusBadge.textContent=closed?"Closed":"Open";
+      badges.appendChild(statusBadge);
+      if (tl) { var tb=div("pbadge pbadge-time"); tb.textContent="⏱ "+tl; badges.appendChild(tb); }
+      info.appendChild(badges);
+      top.appendChild(info);
+
+      var pb = document.createElement("button");
+      pb.textContent = done ? "Checked In ✓" : closed ? "Closed" : "Check In";
+      pb.className = "punch-btn "+(done?"stamped":closed?"over":"can");
+      if (done||closed) pb.disabled=true;
+      pb.onclick = function(){ stampAssignment(a.id); };
+      top.appendChild(pb);
+      card.appendChild(top);
+
+      // Divider + footer
+      card.appendChild(div("punch-divider"));
+      var footer = div("punch-footer");
+      var ftxt = div("punch-footer-txt"); ftxt.textContent=a.checkins.length+"/"+state.members.length+" members stamped "+(expanded?"▲":"▼");
+      var fpct = div(""); fpct.style.cssText="font-size:11px;font-weight:800;color:"+(pct===100?"var(--green)":"var(--orange)");
+      fpct.textContent=pct+"%";
+      footer.appendChild(ftxt); footer.appendChild(fpct);
+      footer.onclick=function(){ expandedId=expandedId===a.id?null:a.id; renderPanel(); };
+      card.appendChild(footer);
+
+      // Expanded member list
+      if (expanded) {
+        var mlist = div("punch-members");
+        state.members.forEach(function(m) {
+          var c = a.checkins.indexOf(m.name)>-1;
+          var late = closed&&!c;
+          var tag = div("pmtag "+(late?"pmtag-miss":c?"pmtag-done":"pmtag-pend"));
+          tag.textContent = (late?"✗":c?"✓":"○")+" "+m.name;
+          mlist.appendChild(tag);
+        });
+        card.appendChild(mlist);
+      }
+      body.appendChild(card);
+    });
+  }
+  wrap.appendChild(body);
+}
+
+function stampAssignment(id) {
+  var a = state.assignments.find(function(x){ return x.id===id; });
+  if (!a) return;
+  if (isClosed(a)) { toast("Deadline passed - assignment is closed.","error"); return; }
+  if (a.checkins.indexOf(panelMember)>-1) { toast("Already stamped!","info"); return; }
+  a.checkins.push(panelMember);
+  save(); toast(a.title+" stamped!"); renderPanel();
+}
+
+// ── ADMIN PIN ────────────────────────────────────────
+var ADMIN_PIN = "0000";
+
+document.getElementById("admin-btn").onclick = function() {
+  if (adminUnlocked) { renderAdmin(); document.getElementById("ov-admin").classList.add("open"); return; }
+  var wrap = document.getElementById("pin-wrap");
+  wrap.innerHTML="";
+  adminEntered="";
+  var ui = makePinUI("ADMIN", "Enter Admin PIN to continue", handleAdminKey, false);
+  ui.querySelector(".pin-title").style.color="var(--orange)";
+  var hint2=div("pin-hint"); hint2.textContent="Default PIN: 0000"; ui.appendChild(hint2);
+  wrap.appendChild(ui);
+  document.getElementById("ov-pin").classList.add("open");
 };
 
-window.openExport=function(){
-  var sel=document.getElementById("export-select");
-  sel.innerHTML="<option value=\"all\">All Assignments</option>"
-    +state.assignments.map(function(a){return "<option value=\""+a.id+"\">"+esc(a.title)+"</option>";}).join("");
-  document.getElementById("export-overlay").classList.add("open");
-  updateExportText();
+function handleAdminKey(k) {
+  if (k==="DEL") { adminEntered=adminEntered.slice(0,-1); updatePinDots(adminEntered); return; }
+  if (adminEntered.length>=4) return;
+  adminEntered+=String(k); updatePinDots(adminEntered);
+  if (adminEntered.length===4) setTimeout(checkAdminPin,120);
+}
+
+function checkAdminPin() {
+  if (adminEntered===ADMIN_PIN) {
+    adminUnlocked=true; closeOverlay("ov-pin");
+    renderAdmin(); document.getElementById("ov-admin").classList.add("open");
+  } else {
+    showPinError("Wrong PIN. Try again."); adminEntered="";
+  }
+}
+
+document.getElementById("btn-close-admin").onclick = function(){ closeOverlay("ov-admin"); };
+
+// ── ADMIN PANEL ──────────────────────────────────────
+function renderAdmin() {
+  // Assignments
+  var aList = document.getElementById("admin-assign-list");
+  aList.innerHTML="";
+  if (!state.assignments.length) {
+    var e=div(""); e.style.cssText="color:var(--muted);font-size:12px;padding:6px 0"; e.textContent="No assignments yet."; aList.appendChild(e);
+  } else {
+    state.assignments.forEach(function(a) {
+      var dl = new Date(a.deadline);
+      var localDL = new Date(dl.getTime()-dl.getTimezoneOffset()*60000).toISOString().slice(0,16);
+      var wrap2 = div(""); wrap2.style.cssText="border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden";
+      var row = div("admin-row"); row.style.padding="10px 12px";
+      var info = div(""); info.style.flex="1";
+      var t=div(""); t.style.cssText="font-weight:700;font-size:13px"; t.textContent=a.title; info.appendChild(t);
+      var d=div(""); d.style.cssText="font-size:11px;color:var(--muted)"; d.textContent="Deadline: "+fmt(a.deadline); info.appendChild(d);
+      var c=div(""); c.style.cssText="font-size:11px;color:var(--muted)"; c.textContent=a.checkins.length+" check-in(s)"; info.appendChild(c);
+      row.appendChild(info);
+      var btns = div(""); btns.style.cssText="display:flex;gap:6px";
+      var editBtn = document.createElement("button"); editBtn.className="btn"; editBtn.style.cssText="background:#eff6ff;color:#2d3280;font-size:11px;padding:5px 10px"; editBtn.textContent="Edit";
+      editBtn.onclick=function(){
+        var f=document.getElementById("ef-"+a.id);
+        f.style.display=f.style.display==="none"?"block":"none";
+      };
+      btns.appendChild(editBtn);
+      var statusBtn = document.createElement("button"); statusBtn.className="btn"; statusBtn.style.cssText="font-size:11px;padding:5px 10px";
+      if (isClosed(a)) { statusBtn.style.cssText+="background:#dcfce7;color:var(--green)"; statusBtn.textContent="Re-open"; }
+      else { statusBtn.style.cssText+="background:#fee2e2;color:var(--red)"; statusBtn.textContent="Close"; }
+      statusBtn.onclick=function(){
+        if (isClosed(a)){a.forceOpen=true;a.forceClosed=false;toast("Re-opened!");}
+        else{a.forceClosed=true;a.forceOpen=false;toast("Closed.");}
+        save(); renderAdmin(); renderLockers();
+      };
+      btns.appendChild(statusBtn);
+      var delBtn = document.createElement("button"); delBtn.className="btn btn-red"; delBtn.style.cssText="font-size:11px;padding:5px 10px"; delBtn.textContent="Remove";
+      delBtn.onclick=function(){ state.assignments=state.assignments.filter(function(x){return x.id!==a.id;}); save(); toast("Removed."); renderAdmin(); renderLockers(); };
+      btns.appendChild(delBtn);
+      row.appendChild(btns);
+      wrap2.appendChild(row);
+      // Edit form
+      var form = div(""); form.id="ef-"+a.id; form.style.cssText="display:none;background:var(--paper);padding:12px;border-top:1px solid var(--border)";
+      var ti = document.createElement("input"); ti.type="text"; ti.value=a.title; ti.style.marginBottom="8px"; form.appendChild(ti);
+      var di = document.createElement("input"); di.type="datetime-local"; di.value=localDL; di.style.marginBottom="10px"; form.appendChild(di);
+      var savBtn=document.createElement("button"); savBtn.className="btn btn-navy"; savBtn.style.cssText="font-size:12px;margin-right:8px"; savBtn.textContent="Save";
+      savBtn.onclick=function(){
+        var nT=ti.value.trim(), nD=di.value;
+        if(!nT||!nD){toast("Fill both fields.","error");return;}
+        a.title=nT; a.deadline=new Date(nD).toISOString();
+        save(); toast("Updated!"); renderAdmin(); renderLockers();
+        if(panelMember&&document.getElementById("ov-panel").classList.contains("open"))renderPanel();
+      };
+      form.appendChild(savBtn);
+      wrap2.appendChild(form);
+      aList.appendChild(wrap2);
+    });
+  }
+  // Members
+  var mList = document.getElementById("admin-member-list");
+  mList.innerHTML="";
+  if (!state.members.length) {
+    var e2=div(""); e2.style.cssText="color:var(--muted);font-size:12px;padding:6px 0"; e2.textContent="No members yet."; mList.appendChild(e2);
+  } else {
+    state.members.forEach(function(m,i) {
+      var row2=div("admin-row");
+      var info2=div(""); info2.style.cssText="display:flex;align-items:center;gap:8px;flex:1";
+      var num=div(""); num.style.cssText="font-size:11px;color:var(--muted)"; num.textContent=String(i+1).padStart(2,"0"); info2.appendChild(num);
+      var nm2=div(""); nm2.style.cssText="font-weight:700;font-size:13px"; nm2.textContent=m.name; info2.appendChild(nm2);
+      var ps=div(""); ps.style.cssText="font-size:10px;color:var(--muted)"; ps.textContent=m.pin?"PIN set":"No PIN"; info2.appendChild(ps);
+      row2.appendChild(info2);
+      var db2=document.createElement("button"); db2.className="btn btn-red"; db2.style.cssText="font-size:11px;padding:5px 10px"; db2.textContent="Remove";
+      db2.onclick=function(){ state.members=state.members.filter(function(x){return x.name!==m.name;}); save(); toast(m.name+" removed."); renderAdmin(); renderLockers(); };
+      row2.appendChild(db2);
+      mList.appendChild(row2);
+    });
+  }
+}
+
+document.getElementById("btn-add-assign").onclick = function() {
+  var t=document.getElementById("a-title").value.trim(), d=document.getElementById("a-deadline").value;
+  if(!t||!d){toast("Fill in title and deadline.","error");return;}
+  state.assignments.push({id:Date.now(),title:t,deadline:new Date(d).toISOString(),checkins:[]});
+  document.getElementById("a-title").value=""; document.getElementById("a-deadline").value="";
+  save(); toast("Assignment added!"); renderAdmin(); renderLockers();
 };
-window.closeExport=function(){document.getElementById("export-overlay").classList.remove("open");};
-function getExportText(id){
+
+document.getElementById("btn-add-member").onclick = function() {
+  var n=document.getElementById("a-member").value.trim(); if(!n)return;
+  if(state.members.find(function(m){return m.name===n;})){toast("Name already exists.","error");return;}
+  state.members.push({name:n,pin:""});
+  document.getElementById("a-member").value="";
+  save(); toast(n+" added!"); renderAdmin(); renderLockers();
+};
+document.getElementById("a-member").onkeydown=function(e){if(e.key==="Enter")document.getElementById("btn-add-member").click();};
+
+// ── EXPORT ───────────────────────────────────────────
+document.getElementById("btn-open-export").onclick = function() {
+  var sel=document.getElementById("export-select");
+  sel.innerHTML=""; 
+  var opt=document.createElement("option"); opt.value="all"; opt.textContent="All Assignments"; sel.appendChild(opt);
+  state.assignments.forEach(function(a){ var o=document.createElement("option"); o.value=a.id; o.textContent=a.title; sel.appendChild(o); });
+  document.getElementById("ov-export").classList.add("open");
+  updateExport();
+};
+document.getElementById("export-select").onchange=updateExport;
+document.getElementById("btn-close-export").onclick=function(){closeOverlay("ov-export");};
+document.getElementById("btn-close-export2").onclick=function(){closeOverlay("ov-export");};
+document.getElementById("btn-copy-export").onclick=function(){
+  navigator.clipboard.writeText(document.getElementById("export-text").value).then(function(){toast("Copied!");}).catch(function(){document.getElementById("export-text").select();document.execCommand("copy");toast("Copied!");});
+};
+document.getElementById("btn-dl-export").onclick=function(){
+  var blob=new Blob([document.getElementById("export-text").value],{type:"text/plain"});
+  var url=URL.createObjectURL(blob); var a=document.createElement("a");
+  a.href=url; a.download="SCG_Report_"+new Date().toISOString().slice(0,10)+".txt"; a.click(); URL.revokeObjectURL(url); toast("Downloaded!");
+};
+
+function updateExport(){
+  var id=document.getElementById("export-select").value;
   var now=new Date().toLocaleString("en-GB");
   var line="================================================";
-  var hdr=line+"\nSAFETY CAMPAIGN GHANA - MENTORSHIP PROGRAMME 2026\nAssignment Check-In Report\nGenerated: "+now+"\n"+line;
+  var out=line+"
+SAFETY CAMPAIGN GHANA - MENTORSHIP PROGRAMME 2026
+Assignment Check-In Report
+Generated: "+now+"
+"+line;
   function rep(a){
-    var closed=isClosed(a);
-    var done=a.checkins.slice();
-    var missing=state.members.filter(function(m){return !done.includes(m.name);}).map(function(m){return m.name;});
+    var closed=isClosed(a), done=a.checkins.slice();
+    var missing=state.members.filter(function(m){return done.indexOf(m.name)<0;}).map(function(m){return m.name;});
     var pct=state.members.length?Math.round(done.length/state.members.length*100):0;
-    return "\n\nAssignment: "+a.title+"\n"
-      +"Status   : "+(closed?"CLOSED":"OPEN")+"\n"
-      +"Deadline : "+fmt(a.deadline)+"\n"
-      +"Progress : "+done.length+"/"+state.members.length+" ("+pct+"%)\n\n"
-      +"Completed ("+done.length+"):\n"+(done.length?done.map(function(m){return "  - "+m;}).join("\n"):"  (none)")+"\n\n"
-      +(closed
-        ?"Did NOT submit ("+missing.length+"):\n"+(missing.length?missing.map(function(m){return "  - "+m;}).join("\n"):"  (all submitted)")+"\n"
-        :"Pending ("+missing.length+"):\n"+(missing.length?missing.map(function(m){return "  - "+m;}).join("\n"):"  (all done!)")+"\n");
-  }
-  if(id==="all")return hdr+state.assignments.map(rep).join("\n"+line);
-  var found=state.assignments.find(function(a){return a.id==id;});
-  return hdr+rep(found||state.assignments[0]);
-}
-window.updateExportText=function(){
-  document.getElementById("export-text").value=getExportText(document.getElementById("export-select").value);
-};
-window.copyExport=function(){
-  navigator.clipboard.writeText(document.getElementById("export-text").value)
-    .then(function(){toast("Copied!");}).catch(function(){document.getElementById("export-text").select();document.execCommand("copy");toast("Copied!");});
-};
-window.downloadExport=function(){
-  var blob=new Blob([document.getElementById("export-text").value],{type:"text/plain"});
-  var url=URL.createObjectURL(blob);var a=document.createElement("a");
-  a.href=url;a.download="SCG_Report_"+new Date().toISOString().slice(0,10)+".txt";
-  a.click();URL.revokeObjectURL(url);toast("Downloaded!");
-};
+    return "
 
-["pin-overlay","panel-overlay","admin-overlay","export-overlay"].forEach(function(id){
-  document.getElementById(id).addEventListener("click",function(e){
-    if(e.target===this){
-      if(id==="pin-overlay")closePin();
-      else if(id==="panel-overlay")closePanel();
-      else if(id==="admin-overlay")closeAdmin();
-      else closeExport();
-    }
-  });
+Assignment: "+a.title+"
+Status   : "+(closed?"CLOSED":"OPEN")+"
+Deadline : "+fmt(a.deadline)+"
+Progress : "+done.length+"/"+state.members.length+" ("+pct+"%)
+
+Completed ("+done.length+"):
+"+(done.length?done.map(function(n){return "  - "+n;}).join("
+"):"  (none)")+"
+
+"+(closed?"Did NOT submit":"Pending")+" ("+missing.length+"):
+"+(missing.length?missing.map(function(n){return "  - "+n;}).join("
+"):"  (all done!)")+"
+";
+  }
+  if(id==="all"){ out+=state.assignments.map(rep).join("
+"+line); }
+  else{ var found=state.assignments.find(function(a){return String(a.id)===String(id);}); if(found)out+=rep(found); }
+  document.getElementById("export-text").value=out;
+}
+
+// ── OVERLAYS ─────────────────────────────────────────
+function closeOverlay(id) { document.getElementById(id).classList.remove("open"); }
+["ov-pin","ov-panel","ov-admin","ov-export"].forEach(function(id){
+  document.getElementById(id).addEventListener("click",function(e){ if(e.target===this) closeOverlay(id); });
 });
+
+// ── SECRET ADMIN REVEAL (triple-tap logo) ─────────────
+(function(){
+  var taps=[],W=1500,T=3;
+  document.getElementById("scg-logo").addEventListener("click",function(){
+    var now=Date.now(); taps.push(now); taps=taps.filter(function(t){return now-t<W;});
+    if(taps.length>=T){ taps=[]; var b=document.getElementById("admin-btn"); b.style.display=b.style.display==="none"||b.style.display===""?"inline-block":"none"; }
+  });
+})();
 </script>
 </body>
 </html>

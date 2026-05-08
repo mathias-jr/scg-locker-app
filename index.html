@@ -459,7 +459,7 @@ function renderPanel(){
         +"</div><div class=\"punch-divider\"></div>"
         +"<div class=\"punch-footer\" onclick=\"toggleExpand("+a.id+")\">"
         +"<span class=\"punch-footer-txt\">"+a.checkins.length+"/"+state.members.length+" members stamped "+(expanded?"&#9650;":"&#9660;")+"</span>"
-        +"<span style=\"font-size:11px;font-weight:800;color:"+(pct===100?"var(--green)":"var(--orange)");+"\">"+pct+"%</span>"
+        +"<span style=\"font-size:11px;font-weight:800;color:"+(pct===100?"var(--green)":"var(--orange)"+"\">"+pct+"%</span>"
         +"</div>"+memberTags+"</div>";
     }).join("");
   }

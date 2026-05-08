@@ -313,10 +313,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const dbRef = ref(db, "scg_lockers_v1");
-window._fbReady = false;
-window._fbSave = function(stateObj) {
-  set(dbRef, JSON.parse(JSON.stringify(stateObj)));
-};
+
 const DEFAULTS = {
   members:[
     {name:"Mathias",pin:"1234"},{name:"Ama",pin:"1111"},{name:"Kofi",pin:"2222"},
@@ -328,41 +325,9 @@ const DEFAULTS = {
     {id:2,title:"Risk Assessment Write-up",deadline:new Date(Date.now()+5*86400000).toISOString(),checkins:[]}
   ]
 };
-onValue(dbRef, function(snap) {
-  var data = snap.val();
-  var newState;
-  if (!data) {
-    newState = JSON.parse(JSON.stringify(DEFAULTS));
-    set(dbRef, newState);
-  } else {
-    var mem = data.members ? (Array.isArray(data.members) ? data.members : Object.values(data.members)) : [];
-    var asgn = data.assignments ? (Array.isArray(data.assignments) ? data.assignments : Object.values(data.assignments)) : [];
-    asgn = asgn.map(function(a) {
-      return {id:a.id,title:a.title,deadline:a.deadline,
-        checkins:a.checkins?(Array.isArray(a.checkins)?a.checkins:Object.values(a.checkins)):[],
-        forceClosed:a.forceClosed||false,forceOpen:a.forceOpen||false};
-    });
-    newState = {members:mem, assignments:asgn};
-  }
-  if (!window._fbReady) {
-    window.state = newState;
-    window._fbReady = true;
-    if (typeof renderLockers === 'function') renderLockers();
-  } else {
-    window.state = newState;
-    if (typeof renderLockers === 'function') renderLockers();
-    if (window.panelMember && document.getElementById('panel-overlay').classList.contains('open')) {
-      if (typeof renderPanel === 'function') renderPanel();
-    }
-    if (document.getElementById('admin-overlay').classList.contains('open')) {
-      if (typeof renderAdmin === 'function') renderAdmin();
-    }
-  }
-});
-</script>
-<script>
+
 let state = {members:[], assignments:[]};
-function save() { if (window._fbSave) window._fbSave(state); }
+function save() { set(dbRef, JSON.parse(JSON.stringify(state))); }
 
 
 let pinState = {member:null, entered:'', mode:'verify', setupStep:0, newPin:''};
@@ -901,7 +866,50 @@ function downloadExport(){
 });
 
 
-if (window._fbReady && typeof renderLockers === 'function') renderLockers();
+
+onValue(dbRef, function(snap) {
+  var data = snap.val();
+  if (!data) {
+    state = JSON.parse(JSON.stringify(DEFAULTS));
+    save();
+  } else {
+    var mem = data.members ? (Array.isArray(data.members) ? data.members : Object.values(data.members)) : [];
+    var asgn = data.assignments ? (Array.isArray(data.assignments) ? data.assignments : Object.values(data.assignments)) : [];
+    asgn = asgn.map(function(a) {
+      return {id:a.id,title:a.title,deadline:a.deadline,
+        checkins:a.checkins?(Array.isArray(a.checkins)?a.checkins:Object.values(a.checkins)):[],
+        forceClosed:a.forceClosed||false,forceOpen:a.forceOpen||false};
+    });
+    state = {members:mem, assignments:asgn};
+  }
+  renderLockers();
+  if (panelMember && document.getElementById('panel-overlay').classList.contains('open')) renderPanel();
+  if (document.getElementById('admin-overlay').classList.contains('open')) renderAdmin();
+});
+
+// Expose functions needed by inline HTML onclick handlers
+window.openLocker = openLocker;
+window.stampAssignment = stampAssignment;
+window.toggleExpand = toggleExpand;
+window.closePanel = closePanel;
+window.pinPress = pinPress;
+window.openAdmin = openAdmin;
+window.closeAdmin = closeAdmin;
+window.addAssignment = addAssignment;
+window.deleteAssignment = deleteAssignment;
+window.toggleEditAssign = toggleEditAssign;
+window.saveEditAssign = saveEditAssign;
+window.toggleAssignStatus = toggleAssignStatus;
+window.addMember = addMember;
+window.removeMember = removeMember;
+window.openExport = openExport;
+window.closeExport = closeExport;
+window.copyExport = copyExport;
+window.downloadExport = downloadExport;
+window.updateExportText = updateExportText;
+window.adminPinPress = adminPinPress;
+window.resetPin = resetPin;
+window.closePin = closePin;
 </script></script>
 </body>
 </html>

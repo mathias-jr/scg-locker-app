@@ -710,52 +710,30 @@ document.getElementById("btn-dl-export").onclick=function(){
 function updateExport(){
   var id=document.getElementById("export-select").value;
   var now=new Date().toLocaleString("en-GB");
-  var line="================================================";
-  var out=line+"
-SAFETY CAMPAIGN GHANA - MENTORSHIP PROGRAMME 2026
-Assignment Check-In Report
-Generated: "+now+"
-"+line;
+  var NL="\n";
+  var LINE="================================================";
+  var out=LINE+NL+"SAFETY CAMPAIGN GHANA - MENTORSHIP PROGRAMME 2026"+NL+"Assignment Check-In Report"+NL+"Generated: "+now+NL+LINE;
   function rep(a){
-    var closed=isClosed(a), done=a.checkins.slice();
-    var missing=state.members.filter(function(m){return done.indexOf(m.name)<0;}).map(function(m){return m.name;});
+    var closed=isClosed(a),done=a.checkins.slice();
+    var miss=state.members.filter(function(m){return done.indexOf(m.name)<0;}).map(function(m){return m.name;});
     var pct=state.members.length?Math.round(done.length/state.members.length*100):0;
-    return "
-
-Assignment: "+a.title+"
-Status   : "+(closed?"CLOSED":"OPEN")+"
-Deadline : "+fmt(a.deadline)+"
-Progress : "+done.length+"/"+state.members.length+" ("+pct+"%)
-
-Completed ("+done.length+"):
-"+(done.length?done.map(function(n){return "  - "+n;}).join("
-"):"  (none)")+"
-
-"+(closed?"Did NOT submit":"Pending")+" ("+missing.length+"):
-"+(missing.length?missing.map(function(n){return "  - "+n;}).join("
-"):"  (all done!)")+"
-";
+    var r=NL+NL+"Assignment: "+a.title+NL+"Status   : "+(closed?"CLOSED":"OPEN")+NL+"Deadline : "+fmt(a.deadline)+NL+"Progress : "+done.length+"/"+state.members.length+" ("+pct+"%)"+NL+NL+"Completed ("+done.length+"):"+NL;
+    r+=done.length?done.map(function(n){return "  - "+n;}).join(NL):"  (none)";
+    r+=NL+NL+(closed?"Did NOT submit":"Pending")+" ("+miss.length+"):"+NL;
+    r+=miss.length?miss.map(function(n){return "  - "+n;}).join(NL):"  (all done!)";
+    return r+NL;
   }
-  if(id==="all"){ out+=state.assignments.map(rep).join("
-"+line); }
-  else{ var found=state.assignments.find(function(a){return String(a.id)===String(id);}); if(found)out+=rep(found); }
+  if(id==="all"){state.assignments.forEach(function(a){out+=rep(a)+LINE;});}
+  else{var f=state.assignments.find(function(a){return String(a.id)===String(id);});if(f)out+=rep(f);}
   document.getElementById("export-text").value=out;
-}
-
-// ── OVERLAYS ─────────────────────────────────────────
-function closeOverlay(id) { document.getElementById(id).classList.remove("open"); }
-["ov-pin","ov-panel","ov-admin","ov-export"].forEach(function(id){
-  document.getElementById(id).addEventListener("click",function(e){ if(e.target===this) closeOverlay(id); });
-});
-
-// ── SECRET ADMIN REVEAL (triple-tap logo) ─────────────
-(function(){
-  var taps=[],W=1500,T=3;
-  document.getElementById("scg-logo").addEventListener("click",function(){
-    var now=Date.now(); taps.push(now); taps=taps.filter(function(t){return now-t<W;});
-    if(taps.length>=T){ taps=[]; var b=document.getElementById("admin-btn"); b.style.display=b.style.display==="none"||b.style.display===""?"inline-block":"none"; }
-  });
-})();
-</script>
-</body>
-</html>
+}.join("");
+}<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SCG · Locker Room</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--navy:#2d3280;--navy-d:#1e2260;--navy-l:#3d43a0;--orange:#e8521a;--orange-l:#ff6b35;--cream:#fdf8f3;--paper:#f0ebe2;--ink:#1a1a2e;--muted:#9399b8;--border:#ddd6c8;--green:#16a34a;--red:#dc2626;}
+*{box-sizing:border-box;margin:0;p

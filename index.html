@@ -301,7 +301,6 @@ input::placeholder{color:var(--muted);}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyDYuommjN2ggBg4Oks9gk_TDwWRPP0UFNc",
   authDomain: "sgc-checkin-2d966.firebaseapp.com",
@@ -314,31 +313,57 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const dbRef = ref(db, "scg_lockers_v1");
-
+window._fbReady = false;
+window._fbSave = function(stateObj) {
+  set(dbRef, JSON.parse(JSON.stringify(stateObj)));
+};
 const DEFAULTS = {
-  members: [
-    {name:"Mathias",pin:"1234"},
-    {name:"Ama",pin:"1111"},
-    {name:"Kofi",pin:"2222"},
-    {name:"Akosua",pin:"3333"},
-    {name:"Kwame",pin:"4444"},
-    {name:"Abena",pin:"5555"},
-    {name:"Yaw",pin:"6666"},
-    {name:"Efua",pin:"7777"},
-    {name:"Nana",pin:"8888"},
-    {name:"Fiifi",pin:"9999"}
+  members:[
+    {name:"Mathias",pin:"1234"},{name:"Ama",pin:"1111"},{name:"Kofi",pin:"2222"},
+    {name:"Akosua",pin:"3333"},{name:"Kwame",pin:"4444"},{name:"Abena",pin:"5555"},
+    {name:"Yaw",pin:"6666"},{name:"Efua",pin:"7777"},{name:"Nana",pin:"8888"},{name:"Fiifi",pin:"9999"}
   ],
-  assignments: [
-    {id:1, title:"Safety Management Systems Summary", deadline:new Date(Date.now()+2*86400000).toISOString(), checkins:[]},
-    {id:2, title:"Risk Assessment Write-up", deadline:new Date(Date.now()+5*86400000).toISOString(), checkins:[]}
+  assignments:[
+    {id:1,title:"Safety Management Systems Summary",deadline:new Date(Date.now()+2*86400000).toISOString(),checkins:[]},
+    {id:2,title:"Risk Assessment Write-up",deadline:new Date(Date.now()+5*86400000).toISOString(),checkins:[]}
   ]
 };
-
+onValue(dbRef, function(snap) {
+  var data = snap.val();
+  var newState;
+  if (!data) {
+    newState = JSON.parse(JSON.stringify(DEFAULTS));
+    set(dbRef, newState);
+  } else {
+    var mem = data.members ? (Array.isArray(data.members) ? data.members : Object.values(data.members)) : [];
+    var asgn = data.assignments ? (Array.isArray(data.assignments) ? data.assignments : Object.values(data.assignments)) : [];
+    asgn = asgn.map(function(a) {
+      return {id:a.id,title:a.title,deadline:a.deadline,
+        checkins:a.checkins?(Array.isArray(a.checkins)?a.checkins:Object.values(a.checkins)):[],
+        forceClosed:a.forceClosed||false,forceOpen:a.forceOpen||false};
+    });
+    newState = {members:mem, assignments:asgn};
+  }
+  if (!window._fbReady) {
+    window.state = newState;
+    window._fbReady = true;
+    if (typeof renderLockers === 'function') renderLockers();
+  } else {
+    window.state = newState;
+    if (typeof renderLockers === 'function') renderLockers();
+    if (window.panelMember && document.getElementById('panel-overlay').classList.contains('open')) {
+      if (typeof renderPanel === 'function') renderPanel();
+    }
+    if (document.getElementById('admin-overlay').classList.contains('open')) {
+      if (typeof renderAdmin === 'function') renderAdmin();
+    }
+  }
+});
+</script>
+<script>
 let state = {members:[], assignments:[]};
+function save() { if (window._fbSave) window._fbSave(state); }
 
-function save() {
-  set(dbRef, JSON.parse(JSON.stringify(state)));
-}
 
 let pinState = {member:null, entered:'', mode:'verify', setupStep:0, newPin:''};
 let panelMember = null;
@@ -876,32 +901,7 @@ function downloadExport(){
 });
 
 
-// Firebase listener - syncs data live across all devices
-onValue(dbRef, function(snap) {
-  var data = snap.val();
-  if (!data) {
-    state = JSON.parse(JSON.stringify(DEFAULTS));
-    save();
-  } else {
-    var mem = data.members ? (Array.isArray(data.members) ? data.members : Object.values(data.members)) : [];
-    var asgn = data.assignments ? (Array.isArray(data.assignments) ? data.assignments : Object.values(data.assignments)) : [];
-    asgn = asgn.map(function(a) {
-      return {
-        id: a.id,
-        title: a.title,
-        deadline: a.deadline,
-        checkins: a.checkins ? (Array.isArray(a.checkins) ? a.checkins : Object.values(a.checkins)) : [],
-        forceClosed: a.forceClosed || false,
-        forceOpen: a.forceOpen || false
-      };
-    });
-    state.members = mem;
-    state.assignments = asgn;
-  }
-  renderLockers();
-  if (panelMember && document.getElementById('panel-overlay').classList.contains('open')) renderPanel();
-  if (document.getElementById('admin-overlay').classList.contains('open')) renderAdmin();
-});
+if (window._fbReady && typeof renderLockers === 'function') renderLockers();
 </script></script>
 </body>
 </html>

@@ -566,7 +566,7 @@ function renderPanel(){
                 </div>
                 <button
                   class="punch-btn ${done?'is-punched':closed?'is-over':'can-punch'}"
-                  ${done||closed?'disabled':''}
+                  ${closed&&!done?'disabled':''}
                   onclick="stampAssignment(${a.id})">
                   ${done?'Checked In ✓':closed?'Closed':'Check In'}
                 </button>
@@ -593,7 +593,7 @@ if(a.checkins.includes(name)){
   save(); toast('Check-in removed.','info'); renderPanel(); renderLockers();
 } else {
   a.checkins.push(name);
-  save(); toast('`"${a.title}" stamped! ✅`'); renderPanel(); renderLockers();
+  save(); toast(a.title + ' stamped! ✅'); renderPanel(); renderLockers();
 }
 }
 

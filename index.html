@@ -6,13 +6,7 @@
 <title>SCG · Locker Room</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito+Sans:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
 <style>
-:root {
---navy: #2d3280; --navy-d: #1e2260; --navy-l: #3d43a0;
---orange: #e8521a; --orange-l: #ff6b35;
---cream: #fdf8f3; --paper: #f0ebe2;
---ink: #1a1a2e; --muted: #9399b8; --border: #ddd6c8;
---green: #16a34a; --red: #dc2626; --stamp: #c41e3a;
-}
+:root{--navy:#2d3280;--navy-d:#1e2260;--navy-l:#3d43a0;--orange:#e8521a;--orange-l:#ff6b35;--cream:#fdf8f3;--paper:#f0ebe2;--ink:#1a1a2e;--muted:#9399b8;--border:#ddd6c8;--green:#16a34a;--red:#dc2626;--stamp:#c41e3a;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Nunito Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;overflow-x:hidden;}
 header{background:var(--navy);padding:0 20px;box-shadow:0 3px 20px rgba(45,50,128,0.3);}
@@ -143,11 +137,7 @@ input::placeholder{color:var(--muted);}
 .setup-box{background:#fff;border-radius:16px;padding:24px;width:100%;max-width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
 .setup-title{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--navy);letter-spacing:2px;margin-bottom:6px;}
 .setup-sub{font-size:12px;color:var(--muted);font-weight:600;margin-bottom:18px;line-height:1.5;}
-@media(max-width:480px){
-.locker-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}
-.header-right{gap:6px;}
-.admin-btn,.export-btn{font-size:11px;padding:6px 10px;}
-}
+@media(max-width:480px){.locker-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr));}.header-right{gap:6px;}.admin-btn,.export-btn{font-size:11px;padding:6px 10px;}}
 </style>
 </head>
 <body>
@@ -167,21 +157,15 @@ input::placeholder{color:var(--muted);}
 <input type="datetime-local" id="a-deadline" style="margin-bottom:10px;"/>
 <button class="btn btn-orange" onclick="addAssignment()">+ Add Assignment</button>
 </div>
-<div class="admin-section">
-<div class="admin-section-title">All Assignments</div>
-<div id="admin-assign-list"></div>
-</div>
+<div class="admin-section"><div class="admin-section-title">All Assignments</div><div id="admin-assign-list"></div></div>
 <div class="admin-section">
 <div class="admin-section-title">Add Member</div>
 <div style="display:flex;gap:8px;">
-<input type="text" id="a-member" placeholder="Full name..." onkeydown="if(event.key==='Enter')addMember()" style="flex:1;width:auto;"/>
+<input type="text" id="a-member" placeholder="Full name..." onkeydown="if(event.key===&quot;Enter&quot;)addMember()" style="flex:1;width:auto;"/>
 <button class="btn btn-navy" onclick="addMember()" style="width:auto;white-space:nowrap;">+ Add</button>
 </div>
 </div>
-<div class="admin-section">
-<div class="admin-section-title">Members</div>
-<div id="admin-member-list"></div>
-</div>
+<div class="admin-section"><div class="admin-section-title">Members</div><div id="admin-member-list"></div></div>
 </div>
 </div>
 </div>
@@ -194,8 +178,8 @@ input::placeholder{color:var(--muted);}
 <div style="margin-bottom:10px;"><select id="export-select" onchange="updateExportText()" style="margin-bottom:0;"></select></div>
 <textarea id="export-text" readonly></textarea>
 <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
-<button class="btn btn-orange" onclick="copyExport()">&#128203; Copy</button>
-<button class="btn btn-green" onclick="downloadExport()">&#8681; Download</button>
+<button class="btn btn-orange" onclick="copyExport()">Copy</button>
+<button class="btn btn-green" onclick="downloadExport()">Download</button>
 <button class="btn" onclick="closeExport()" style="background:var(--paper);color:var(--muted);">Close</button>
 </div>
 </div>
@@ -224,14 +208,13 @@ input::placeholder{color:var(--muted);}
 </div>
 </div>
 <div class="header-right">
-<button class="admin-btn" id="admin-btn" onclick="openAdmin()" style="display:none;">&#9881; Admin</button>
-<button class="export-btn" onclick="openExport()">&#128228; Export</button>
+<button class="admin-btn" id="admin-btn" onclick="openAdmin()" style="display:none;">Admin</button>
+<button class="export-btn" onclick="openExport()">Export</button>
 </div>
 </div>
 </header>
 <div class="accent-bar"></div>
-<div class="scoreboard">
-<div class="scoreboard-inner">
+<div class="scoreboard"><div class="scoreboard-inner">
 <div class="score-item"><div class="val" id="sc-members">0</div><div class="lbl">Members</div></div>
 <div class="score-divider"></div>
 <div class="score-item"><div class="val" id="sc-assignments">0</div><div class="lbl">Assignments</div></div>
@@ -239,8 +222,7 @@ input::placeholder{color:var(--muted);}
 <div class="score-item"><div class="val" id="sc-checkins">0</div><div class="lbl">Total Check-ins</div></div>
 <div class="score-divider"></div>
 <div class="score-item"><div class="val" id="sc-complete">0</div><div class="lbl">All Done</div></div>
-</div>
-</div>
+</div></div>
 <div class="room-wrap">
 <div class="room-title">Tap your locker &middot; Enter PIN &middot; Stamp your assignments</div>
 <div class="locker-grid" id="locker-grid"></div>
@@ -258,140 +240,139 @@ const firebaseConfig = {
   messagingSenderId: "88375703988",
   appId: "1:88375703988:web:fe75ea62c465262fbbdae1"
 };
-
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const dbRef = ref(db, 'scg_lockers_v1');
+const dbRef = ref(db, "scg_lockers_v1");
 
 const DEFAULT_STATE = {
-  members: [
+  members:[
     {name:"Mathias",pin:"1234"},{name:"Ama",pin:"1111"},{name:"Kofi",pin:"2222"},
     {name:"Akosua",pin:"3333"},{name:"Kwame",pin:"4444"},{name:"Abena",pin:"5555"},
     {name:"Yaw",pin:"6666"},{name:"Efua",pin:"7777"},{name:"Nana",pin:"8888"},{name:"Fiifi",pin:"9999"}
   ],
-  assignments: [
+  assignments:[
     {id:1,title:"Safety Management Systems Summary",deadline:new Date(Date.now()+2*86400000).toISOString(),checkins:[]},
     {id:2,title:"Risk Assessment Write-up",deadline:new Date(Date.now()+5*86400000).toISOString(),checkins:[]}
   ]
 };
 
-let state = {members:[],assignments:[]};
-let pinState = {member:null,entered:'',mode:'verify',setupStep:0,newPin:''};
-let panelMember = null;
-let expandedAssign = null;
+let state={members:[],assignments:[]};
+let pinState={member:null,entered:"",mode:"verify",setupStep:0,newPin:""};
+let panelMember=null, expandedAssign=null;
 
 function save(){set(dbRef,state);}
 
 function normalizeState(data){
-  state.members = Array.isArray(data.members)?data.members:Object.values(data.members||{});
-  state.assignments = Array.isArray(data.assignments)?data.assignments:Object.values(data.assignments||{});
-  state.assignments = state.assignments.map(a=>({
-    ...a,
-    checkins:Array.isArray(a.checkins)?a.checkins:Object.values(a.checkins||{})
-  }));
+  state.members=Array.isArray(data.members)?data.members:Object.values(data.members||{});
+  state.assignments=Array.isArray(data.assignments)?data.assignments:Object.values(data.assignments||{});
+  state.assignments=state.assignments.map(function(a){return Object.assign({},a,{checkins:Array.isArray(a.checkins)?a.checkins:Object.values(a.checkins||{})});});
 }
 
-onValue(dbRef,(snapshot)=>{
-  const data=snapshot.val();
+onValue(dbRef,function(snapshot){
+  var data=snapshot.val();
   if(!data){state=JSON.parse(JSON.stringify(DEFAULT_STATE));save();}
   else{normalizeState(data);}
   renderLockers();
-  if(panelMember&&document.getElementById('panel-overlay').classList.contains('open'))renderPanel();
-  if(document.getElementById('admin-overlay').classList.contains('open'))renderAdmin();
+  if(panelMember&&document.getElementById("panel-overlay").classList.contains("open"))renderPanel();
+  if(document.getElementById("admin-overlay").classList.contains("open"))renderAdmin();
 });
 
-function fmt(iso){return new Date(iso).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});}
+function fmt(iso){return new Date(iso).toLocaleString("en-GB",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});}
 function isClosed(a){
-  if(typeof a==='string')return new Date()>new Date(a);
+  if(typeof a==="string")return new Date()>new Date(a);
   if(a.forceClosed===true)return true;
   if(a.forceOpen===true)return false;
   return new Date()>new Date(a.deadline);
 }
-function timeLeft(dl){const d=new Date(dl)-new Date();if(d<=0)return null;const h=Math.floor(d/3600000);return h<24?h+'h left':Math.floor(h/24)+'d left';}
-function isUrgent(dl){const d=new Date(dl)-new Date();return d>0&&d<=12*3600000;}
-function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function timeLeft(dl){var d=new Date(dl)-new Date();if(d<=0)return null;var h=Math.floor(d/3600000);return h<24?h+"h left":Math.floor(h/24)+"d left";}
+function isUrgent(dl){var d=new Date(dl)-new Date();return d>0&&d<=12*3600000;}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
 
-let toastT;
-function toast(msg,type='success'){
-  const el=document.getElementById('toast');
+var toastT;
+function toast(msg,type){
+  type=type||"success";
+  var el=document.getElementById("toast");
   el.textContent=msg;
-  el.style.background=type==='error'?'#dc2626':type==='info'?'#2d3280':'#16a34a';
-  el.style.display='block';
+  el.style.background=type==="error"?"#dc2626":type==="info"?"#2d3280":"#16a34a";
+  el.style.display="block";
   clearTimeout(toastT);
-  toastT=setTimeout(()=>el.style.display='none',2800);
+  toastT=setTimeout(function(){el.style.display="none";},2800);
 }
 
 function renderScoreboard(){
-  document.getElementById('sc-members').textContent=state.members.length;
-  document.getElementById('sc-assignments').textContent=state.assignments.length;
-  document.getElementById('sc-checkins').textContent=state.assignments.reduce((s,a)=>s+a.checkins.length,0);
-  const allDone=state.members.filter(m=>state.assignments.length>0&&state.assignments.every(a=>a.checkins.includes(m.name))).length;
-  document.getElementById('sc-complete').textContent=allDone;
+  document.getElementById("sc-members").textContent=state.members.length;
+  document.getElementById("sc-assignments").textContent=state.assignments.length;
+  document.getElementById("sc-checkins").textContent=state.assignments.reduce(function(s,a){return s+a.checkins.length;},0);
+  var allDone=state.members.filter(function(m){return state.assignments.length>0&&state.assignments.every(function(a){return a.checkins.includes(m.name);});}).length;
+  document.getElementById("sc-complete").textContent=allDone;
 }
 
 function renderLockers(){
   renderScoreboard();
-  const grid=document.getElementById('locker-grid');
-  grid.innerHTML=state.members.map((m,i)=>{
-    const done=state.assignments.filter(a=>a.checkins.includes(m.name)).length;
-    const total=state.assignments.length;
-    const pct=total?Math.round(done/total*100):0;
-    const allDone=total>0&&done===total;
-    const hasActivity=done>0;
-    const stamps=state.assignments.map(a=>'<div class="mini-stamp '+(a.checkins.includes(m.name)?'done':'')+'"></div>').join('');
-    return '<div class="locker '+(allDone?'all-done':hasActivity?'has-activity':'')+'" onclick="openLocker(''+esc(m.name)+'')">'+
-      '<div class="locker-top">'+
-      '<div class="locker-number">#'+String(i+1).padStart(2,'0')+'</div>'+
-      '<div class="locker-name">'+esc(m.name)+'</div>'+
-      '<div class="locker-handle"></div>'+
-      (allDone?'<div class="locker-new-badge">ALL DONE</div>':'')+
-      '</div>'+
-      '<div class="locker-body">'+
-      '<div class="locker-progress">'+
-      '<div class="locker-bar"><div class="locker-fill" style="width:'+pct+'%"></div></div>'+
-      '<div class="locker-count">'+done+'/'+total+' DONE</div>'+
-      '</div>'+
-      '<div class="locker-stamps">'+stamps+'</div>'+
-      '</div></div>';
-  }).join('');
+  var grid=document.getElementById("locker-grid");
+  grid.innerHTML=state.members.map(function(m,i){
+    var done=state.assignments.filter(function(a){return a.checkins.includes(m.name);}).length;
+    var total=state.assignments.length;
+    var pct=total?Math.round(done/total*100):0;
+    var allDone=total>0&&done===total;
+    var hasActivity=done>0;
+    var stamps=state.assignments.map(function(a){return "<div class=\"mini-stamp "+(a.checkins.includes(m.name)?"done":"")+"\">&nbsp;</div>";}).join("");
+    return "<div class=\"locker "+(allDone?"all-done":hasActivity?"has-activity":"")+"\" onclick=\"openLocker("+JSON.stringify(m.name)+")\">"
+      +"<div class=\"locker-top\"><div class=\"locker-number\">#"+String(i+1).padStart(2,"0")+"</div>"
+      +"<div class=\"locker-name\">"+esc(m.name)+"</div><div class=\"locker-handle\"></div>"
+      +(allDone?"<div class=\"locker-new-badge\">ALL DONE</div>":"")
+      +"</div><div class=\"locker-body\"><div class=\"locker-progress\">"
+      +"<div class=\"locker-bar\"><div class=\"locker-fill\" style=\"width:"+pct+"%\"></div></div>"
+      +"<div class=\"locker-count\">"+done+"/"+total+" DONE</div></div>"
+      +"<div class=\"locker-stamps\">"+stamps+"</div></div></div>";
+  }).join("");
 }
 
 window.openLocker=function(name){
-  const m=state.members.find(x=>x.name===name);
+  var m=state.members.find(function(x){return x.name===name;});
   if(!m)return;
-  pinState={member:m,entered:'',mode:m.pin?'verify':'setup',setupStep:0,newPin:''};
+  pinState={member:m,entered:"",mode:m.pin?"verify":"setup",setupStep:0,newPin:""};
   renderPin();
-  document.getElementById('pin-overlay').classList.add('open');
+  document.getElementById("pin-overlay").classList.add("open");
 };
 
+function makeDots(entered){
+  return [0,1,2,3].map(function(i){return "<div class=\"pin-dot "+(entered.length>i?"filled":"")+"\"></div>";}).join("");
+}
+function makePad(handler){
+  return [1,2,3,4,5,6,7,8,9,"",0,"DEL"].map(function(k,idx){
+    if(k==="")return "<div></div>";
+    var isBackspace=idx===11;
+    return "<button class=\"pin-key "+(isBackspace?"del":"")+"\" onclick=\""+handler+"("+(isBackspace?"&quot;DEL&quot;":k)+")\">"+(isBackspace?"&#8592;":k)+"</button>";
+  }).join("");
+}
+
 function renderPin(){
-  const m=pinState.member;
-  const c=document.getElementById('pin-content');
-  const dots=[0,1,2,3].map(i=>'<div class="pin-dot '+(pinState.entered.length>i?'filled':'')+'"></div>').join('');
-  const pad=[1,2,3,4,5,6,7,8,9,'',0,'&#8592;'].map((k,idx)=>
-    k===''?'<div></div>':'<button class="pin-key '+(k==='&#8592;'||idx===11?'del':'')+'" onclick="pinPress(''+(idx===11?'DEL':k)+'')">'+(idx===11?'&#8592;':k)+'</button>'
-  ).join('');
-  if(pinState.mode==='setup'){
-    const step=pinState.setupStep;
-    c.innerHTML='<div class="setup-box"><div class="setup-title">'+esc(m.name)+'</div>'+
-      '<div class="setup-sub">'+(step===0?'Set a 4-digit PIN for your locker.<br/>You'll use this every time you check in.':'Confirm your PIN')+'</div>'+
-      '<div class="pin-dots" id="pin-dots">'+dots+'</div>'+
-      '<div class="pin-error" id="pin-error"></div>'+
-      '<div class="pin-pad">'+pad+'</div>'+
-      '<button class="pin-cancel" onclick="closePin()">Cancel</button></div>';
+  var m=pinState.member;
+  var c=document.getElementById("pin-content");
+  var dots=makeDots(pinState.entered);
+  var pad=makePad("pinPress");
+  if(pinState.mode==="setup"){
+    var step=pinState.setupStep;
+    c.innerHTML="<div class=\"setup-box\"><div class=\"setup-title\">"+esc(m.name)+"</div>"
+      +"<div class=\"setup-sub\">"+(step===0?"Set a 4-digit PIN for your locker.":"Confirm your PIN")+"</div>"
+      +"<div class=\"pin-dots\" id=\"pin-dots\">"+dots+"</div>"
+      +"<div class=\"pin-error\" id=\"pin-error\"></div>"
+      +"<div class=\"pin-pad\">"+pad+"</div>"
+      +"<button class=\"pin-cancel\" onclick=\"closePin()\">Cancel</button></div>";
   }else{
-    c.innerHTML='<div class="pin-box"><div class="pin-locker-name">'+esc(m.name)+'</div>'+
-      '<div class="pin-sub">Enter your 4-digit PIN</div>'+
-      '<div class="pin-dots" id="pin-dots">'+dots+'</div>'+
-      '<div class="pin-error" id="pin-error"></div>'+
-      '<div class="pin-pad">'+pad+'</div>'+
-      '<div class="pin-hint">Forgot your PIN? <span onclick="resetPin(''+esc(m.name)+'')">Reset it</span></div>'+
-      '<button class="pin-cancel" onclick="closePin()">Cancel</button></div>';
+    c.innerHTML="<div class=\"pin-box\"><div class=\"pin-locker-name\">"+esc(m.name)+"</div>"
+      +"<div class=\"pin-sub\">Enter your 4-digit PIN</div>"
+      +"<div class=\"pin-dots\" id=\"pin-dots\">"+dots+"</div>"
+      +"<div class=\"pin-error\" id=\"pin-error\"></div>"
+      +"<div class=\"pin-pad\">"+pad+"</div>"
+      +"<div class=\"pin-hint\">Forgot your PIN? <span onclick=\"resetPin("+JSON.stringify(m.name)+")\" style=\"color:var(--orange);font-weight:700;cursor:pointer;\">Reset it</span></div>"
+      +"<button class=\"pin-cancel\" onclick=\"closePin()\">Cancel</button></div>";
   }
 }
 
 window.pinPress=function(key){
-  if(key==='DEL'){pinState.entered=pinState.entered.slice(0,-1);renderPin();return;}
+  if(key==="DEL"){pinState.entered=pinState.entered.slice(0,-1);renderPin();return;}
   if(pinState.entered.length>=4)return;
   pinState.entered+=String(key);
   renderPin();
@@ -399,335 +380,299 @@ window.pinPress=function(key){
 };
 
 function submitPin(){
-  const m=pinState.member;
-  if(pinState.mode==='setup'){
+  var m=pinState.member;
+  if(pinState.mode==="setup"){
     if(pinState.setupStep===0){
-      pinState.newPin=pinState.entered;pinState.entered='';pinState.setupStep=1;renderPin();
+      pinState.newPin=pinState.entered;pinState.entered="";pinState.setupStep=1;renderPin();
     }else{
       if(pinState.entered===pinState.newPin){
-        m.pin=pinState.newPin;save();closePin();toast('PIN set! Opening your locker...');
-        setTimeout(()=>openPanel(m.name),400);
+        m.pin=pinState.newPin;save();closePin();toast("PIN set! Opening your locker...");
+        setTimeout(function(){openPanel(m.name);},400);
       }else{
-        showPinError('PINs do not match. Try again.');
-        pinState.entered='';pinState.setupStep=0;pinState.newPin='';
+        showPinError("PINs do not match. Try again.");
+        pinState.entered="";pinState.setupStep=0;pinState.newPin="";
         setTimeout(renderPin,600);
       }
     }
   }else{
     if(pinState.entered===m.pin){closePin();openPanel(m.name);}
-    else{showPinError('Wrong PIN. Try again.');pinState.entered='';setTimeout(renderPin,600);}
+    else{showPinError("Wrong PIN. Try again.");pinState.entered="";setTimeout(renderPin,600);}
   }
 }
 
 function showPinError(msg){
-  const dots=document.querySelectorAll('.pin-dot');
-  dots.forEach(d=>{d.classList.add('error');d.classList.remove('filled');});
-  const e=document.getElementById('pin-error');if(e)e.textContent=msg;
-  setTimeout(()=>dots.forEach(d=>d.classList.remove('error')),600);
+  var dots=document.querySelectorAll(".pin-dot");
+  dots.forEach(function(d){d.classList.add("error");d.classList.remove("filled");});
+  var e=document.getElementById("pin-error");if(e)e.textContent=msg;
+  setTimeout(function(){dots.forEach(function(d){d.classList.remove("error");});},600);
 }
 
 window.resetPin=function(name){
-  const m=state.members.find(x=>x.name===name);if(!m)return;
-  m.pin='';save();
-  pinState={member:m,entered:'',mode:'setup',setupStep:0,newPin:''};renderPin();
+  var m=state.members.find(function(x){return x.name===name;});if(!m)return;
+  m.pin="";save();
+  pinState={member:m,entered:"",mode:"setup",setupStep:0,newPin:""};renderPin();
 };
 
-window.closePin=function(){document.getElementById('pin-overlay').classList.remove('open');};
+window.closePin=function(){document.getElementById("pin-overlay").classList.remove("open");};
 
-function openPanel(name){panelMember=name;renderPanel();document.getElementById('panel-overlay').classList.add('open');}
+function openPanel(name){panelMember=name;renderPanel();document.getElementById("panel-overlay").classList.add("open");}
 
 function renderPanel(){
-  const name=panelMember;
-  const doneCount=state.assignments.filter(a=>a.checkins.includes(name)).length;
-  const total=state.assignments.length;
-  document.getElementById('panel-content').innerHTML=
-    '<div class="panel-header" style="position:relative;">'+
-    '<button class="panel-close" onclick="closePanel()">&#10005;</button>'+
-    '<div class="panel-header-name">&#128194; '+esc(name)+''s Locker</div>'+
-    '<div class="panel-header-sub">'+doneCount+'/'+total+' Assignments Stamped</div>'+
-    '</div><div class="panel-body">'+
-    (!state.assignments.length
-      ?'<div style="text-align:center;padding:30px;color:var(--muted);">No assignments yet.<br/>Ask your admin to add some.</div>'
-      :state.assignments.map(a=>{
-        const closed=isClosed(a);
-        const done=a.checkins.includes(name);
-        const tl=timeLeft(a.deadline);
-        const pct=state.members.length?Math.round(a.checkins.length/state.members.length*100):0;
-        const expanded=expandedAssign===a.id;
-        const memberTags=expanded?'<div class="punch-members">'+
-          state.members.map(m=>{
-            const c=a.checkins.includes(m.name);
-            const late=closed&&!c;
-            return '<span class="pmtag '+(late?'pmtag-miss':c?'pmtag-done':'pmtag-pend')+'">'+(late?'&#10007;':c?'&#10003;':'&#9675;')+' '+esc(m.name)+'</span>';
-          }).join('')+'</div>':'';
-        return '<div class="punch-card '+(done?'is-done':'')+(closed?' is-closed':'')+'">'+
-          '<div class="punch-top">'+
-          '<div class="punch-hole"><span class="punch-stamp-icon '+(done?'stamp-anim':'')+'">&#9989;</span></div>'+
-          '<div class="punch-info">'+
-          '<div class="punch-title">'+esc(a.title)+'</div>'+
-          '<div class="punch-due" style="'+(isUrgent(a.deadline)?'color:var(--red);font-weight:800;':'')+'">'+
-          (isUrgent(a.deadline)?'&#128308; ':'')+'Deadline: '+fmt(a.deadline)+'</div>'+
-          '<div class="punch-badges">'+
-          '<span class="pbadge '+(closed?'pbadge-closed':'pbadge-open')+'">'+(closed?'Closed':'Open')+'</span>'+
-          (tl?'<span class="pbadge pbadge-time">&#9201; '+tl+'</span>':'')+
-          '</div></div>'+
-          '<button class="punch-btn '+(done?'is-punched':closed?'is-over':'can-punch')+'" '+
-          (done||closed?'disabled':'')+' onclick="stampAssignment('+a.id+')">'+
-          (done?'Checked In &#10003;':closed?'Closed':'Check In')+'</button>'+
-          '</div><div class="punch-divider"></div>'+
-          '<div class="punch-footer" onclick="toggleExpand('+a.id+')">'+
-          '<span class="punch-footer-txt">'+a.checkins.length+'/'+state.members.length+' members stamped '+(expanded?'&#9650;':'&#9660;')+'</span>'+
-          '<span style="font-size:11px;font-weight:800;color:'+(pct===100?'var(--green)':'var(--orange)')+';">'+pct+'%</span>'+
-          '</div>'+memberTags+'</div>';
-      }).join(''))+
-    '</div>';
+  var name=panelMember;
+  var doneCount=state.assignments.filter(function(a){return a.checkins.includes(name);}).length;
+  var total=state.assignments.length;
+  var html="<div class=\"panel-header\" style=\"position:relative;\">"
+    +"<button class=\"panel-close\" onclick=\"closePanel()\">&#10005;</button>"
+    +"<div class=\"panel-header-name\">&#128194; "+esc(name)+"&rsquo;s Locker</div>"
+    +"<div class=\"panel-header-sub\">"+doneCount+"/"+total+" Assignments Stamped</div>"
+    +"</div><div class=\"panel-body\">";
+  if(!state.assignments.length){
+    html+="<div style=\"text-align:center;padding:30px;color:var(--muted);\">No assignments yet.<br/>Ask your admin to add some.</div>";
+  }else{
+    html+=state.assignments.map(function(a){
+      var closed=isClosed(a);
+      var done=a.checkins.includes(name);
+      var tl=timeLeft(a.deadline);
+      var pct=state.members.length?Math.round(a.checkins.length/state.members.length*100):0;
+      var expanded=expandedAssign===a.id;
+      var memberTags="";
+      if(expanded){
+        memberTags="<div class=\"punch-members\">"
+          +state.members.map(function(m){
+            var c=a.checkins.includes(m.name);
+            var late=closed&&!c;
+            return "<span class=\"pmtag "+(late?"pmtag-miss":c?"pmtag-done":"pmtag-pend")+"\">"+
+              (late?"&#10007;":c?"&#10003;":"&#9675;")+" "+esc(m.name)+"</span>";
+          }).join("")+"</div>";
+      }
+      return "<div class=\"punch-card "+(done?"is-done":"")+(closed?" is-closed":"")+"\"><div class=\"punch-top\">"
+        +"<div class=\"punch-hole\"><span class=\"punch-stamp-icon "+(done?"stamp-anim":"")+"\">&#9989;</span></div>"
+        +"<div class=\"punch-info\"><div class=\"punch-title\">"+esc(a.title)+"</div>"
+        +"<div class=\"punch-due\" style=\"color:"+(isUrgent(a.deadline)?"var(--red)":"var(--muted)")+";\">"
+        +(isUrgent(a.deadline)?"&#128308; ":"")+"Deadline: "+fmt(a.deadline)+"</div>"
+        +"<div class=\"punch-badges\"><span class=\"pbadge "+(closed?"pbadge-closed":"pbadge-open")+"\">"+(closed?"Closed":"Open")+"</span>"
+        +(tl?"<span class=\"pbadge pbadge-time\">"+tl+"</span>":"")
+        +"</div></div>"
+        +"<button class=\"punch-btn "+(done?"is-punched":closed?"is-over":"can-punch")+"\" "
+        +(done||closed?"disabled ":"")+"onclick=\"stampAssignment("+a.id+")\">"
+        +(done?"Checked In &#10003;":closed?"Closed":"Check In")+"</button>"
+        +"</div><div class=\"punch-divider\"></div>"
+        +"<div class=\"punch-footer\" onclick=\"toggleExpand("+a.id+")\">"
+        +"<span class=\"punch-footer-txt\">"+a.checkins.length+"/"+state.members.length+" members stamped "+(expanded?"&#9650;":"&#9660;")+"</span>"
+        +"<span style=\"font-size:11px;font-weight:800;color:"+(pct===100?"var(--green)":"var(--orange)");+"\">"+pct+"%</span>"
+        +"</div>"+memberTags+"</div>";
+    }).join("");
+  }
+  html+="</div>";
+  document.getElementById("panel-content").innerHTML=html;
 }
 
 window.stampAssignment=function(id){
-  const name=panelMember;
-  const a=state.assignments.find(x=>x.id===id);
+  var name=panelMember;
+  var a=state.assignments.find(function(x){return x.id===id;});
   if(!a)return;
-  if(isClosed(a))return toast('Deadline passed — assignment is closed.','error');
-  if(a.checkins.includes(name))return toast('Already stamped!','info');
+  if(isClosed(a))return toast("Deadline passed - assignment is closed.","error");
+  if(a.checkins.includes(name))return toast("Already stamped!","info");
   a.checkins.push(name);
-  save();toast('"'+a.title+'" stamped! ✅');renderPanel();
+  save();toast(a.title+" stamped!");renderPanel();
 };
 
 window.toggleExpand=function(id){expandedAssign=expandedAssign===id?null:id;renderPanel();};
-window.closePanel=function(){document.getElementById('panel-overlay').classList.remove('open');expandedAssign=null;};
+window.closePanel=function(){document.getElementById("panel-overlay").classList.remove("open");expandedAssign=null;};
 
 (function(){
   var taps=[],THRESHOLD=3,WINDOW_MS=1500;
-  document.getElementById('scg-logo').addEventListener('click',function(){
-    var now=Date.now();taps.push(now);taps=taps.filter(t=>now-t<WINDOW_MS);
+  document.getElementById("scg-logo").addEventListener("click",function(){
+    var now=Date.now();taps.push(now);taps=taps.filter(function(t){return now-t<WINDOW_MS;});
     if(taps.length>=THRESHOLD){
       taps=[];
-      var btn=document.getElementById('admin-btn');
-      var isHidden=btn.style.display==='none'||btn.style.display==='';
-      if(isHidden){btn.style.display='inline-block';btn.style.background='rgba(232,82,26,0.5)';setTimeout(()=>btn.style.background='',800);}
-      else{btn.style.display='none';}
+      var btn=document.getElementById("admin-btn");
+      if(btn.style.display==="none"||btn.style.display===""){btn.style.display="inline-block";}
+      else{btn.style.display="none";}
     }
   });
 })();
 
-const ADMIN_PIN='0000';
-let adminUnlocked=false;
-let adminPinEntered='';
+var ADMIN_PIN="0000";
+var adminUnlocked=false;
+var adminPinEntered="";
 
 window.openAdmin=function(){
-  if(adminUnlocked){renderAdmin();document.getElementById('admin-overlay').classList.add('open');return;}
-  document.getElementById('pin-content').innerHTML=
-    '<div class="pin-box">'+
-    '<div class="pin-locker-name" style="color:var(--orange);">ADMIN</div>'+
-    '<div class="pin-sub">Enter Admin PIN to continue</div>'+
-    '<div class="pin-dots" id="pin-dots">'+[0,1,2,3].map(()=>'<div class="pin-dot"></div>').join('')+'</div>'+
-    '<div class="pin-error" id="pin-error"></div>'+
-    '<div class="pin-pad">'+
-    [1,2,3,4,5,6,7,8,9,'',0,'&#8592;'].map((k,idx)=>
-      k===''?'<div></div>':'<button class="pin-key '+(idx===11?'del':'')+'" onclick="adminPinPress(''+(idx===11?'DEL':k)+'')">'+
-      (idx===11?'&#8592;':k)+'</button>'
-    ).join('')+'</div>'+
-    '<div class="pin-hint" style="margin-top:4px;">Default PIN is <span style="cursor:default;">0000</span></div>'+
-    '<button class="pin-cancel" onclick="closePin()">Cancel</button></div>';
-  adminPinEntered='';
-  document.getElementById('pin-overlay').classList.add('open');
+  if(adminUnlocked){renderAdmin();document.getElementById("admin-overlay").classList.add("open");return;}
+  var pad=makePad("adminPinPress");
+  document.getElementById("pin-content").innerHTML=
+    "<div class=\"pin-box\"><div class=\"pin-locker-name\" style=\"color:var(--orange);\">ADMIN</div>"
+    +"<div class=\"pin-sub\">Enter Admin PIN to continue</div>"
+    +"<div class=\"pin-dots\" id=\"pin-dots\">"+makeDots("")+"</div>"
+    +"<div class=\"pin-error\" id=\"pin-error\"></div>"
+    +"<div class=\"pin-pad\">"+pad+"</div>"
+    +"<div class=\"pin-hint\">Default PIN: 0000</div>"
+    +"<button class=\"pin-cancel\" onclick=\"closePin()\">Cancel</button></div>";
+  adminPinEntered="";
+  document.getElementById("pin-overlay").classList.add("open");
 };
 
 window.adminPinPress=function(key){
-  if(key==='DEL'){adminPinEntered=adminPinEntered.slice(0,-1);updateAdminDots();return;}
+  if(key==="DEL"){adminPinEntered=adminPinEntered.slice(0,-1);updateAdminDots();return;}
   if(adminPinEntered.length>=4)return;
   adminPinEntered+=String(key);updateAdminDots();
   if(adminPinEntered.length===4)setTimeout(checkAdminPin,120);
 };
 
 function updateAdminDots(){
-  const dots=document.querySelectorAll('.pin-dot');
-  dots.forEach((d,i)=>d.classList.toggle('filled',i<adminPinEntered.length));
+  var dots=document.querySelectorAll(".pin-dot");
+  dots.forEach(function(d,i){d.classList.toggle("filled",i<adminPinEntered.length);});
 }
 
 function checkAdminPin(){
   if(adminPinEntered===ADMIN_PIN){
-    adminUnlocked=true;closePin();renderAdmin();document.getElementById('admin-overlay').classList.add('open');
+    adminUnlocked=true;closePin();renderAdmin();document.getElementById("admin-overlay").classList.add("open");
   }else{
-    const dots=document.querySelectorAll('.pin-dot');
-    dots.forEach(d=>{d.classList.add('error');d.classList.remove('filled');});
-    const e=document.getElementById('pin-error');if(e)e.textContent='Wrong PIN. Try again.';
-    adminPinEntered='';
-    setTimeout(()=>{dots.forEach(d=>d.classList.remove('error'));updateAdminDots();},700);
+    var dots=document.querySelectorAll(".pin-dot");
+    dots.forEach(function(d){d.classList.add("error");d.classList.remove("filled");});
+    var e=document.getElementById("pin-error");if(e)e.textContent="Wrong PIN. Try again.";
+    adminPinEntered="";
+    setTimeout(function(){dots.forEach(function(d){d.classList.remove("error");});updateAdminDots();},700);
   }
 }
 
-window.closeAdmin=function(){document.getElementById('admin-overlay').classList.remove('open');};
+window.closeAdmin=function(){document.getElementById("admin-overlay").classList.remove("open");};
 
 function renderAdmin(){
-  document.getElementById('admin-assign-list').innerHTML=state.assignments.length
-    ?state.assignments.map(a=>{
-      const dl=new Date(a.deadline);
-      const localDL=new Date(dl.getTime()-dl.getTimezoneOffset()*60000).toISOString().slice(0,16);
-      return '<div style="border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;">'+
-        '<div class="admin-row" style="padding:10px 12px;">'+
-        '<div style="flex:1;">'+
-        '<div style="font-weight:700;font-size:13px;">'+esc(a.title)+'</div>'+
-        '<div style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;">Deadline: '+fmt(a.deadline)+'</div>'+
-        '<div style="font-size:11px;color:var(--muted);margin-top:2px;">'+a.checkins.length+' check-in(s)</div>'+
-        '</div>'+
-        '<div style="display:flex;gap:6px;">'+
-        '<button class="btn" onclick="toggleEditAssign('+a.id+')" id="edit-btn-'+a.id+'" style="background:#eff6ff;color:#2d3280;font-size:11px;padding:5px 10px;">&#9998; Edit</button>'+
-        '<button class="btn" onclick="toggleAssignStatus('+a.id+')" style="font-size:11px;padding:5px 10px;background:'+(isClosed(a)?'#dcfce7':'#fee2e2')+';color:'+(isClosed(a)?'var(--green)':'var(--red)')+';">'+
-        (isClosed(a)?'&#128275; Re-open':'&#128274; Close')+'</button>'+
-        '<button class="btn btn-red" onclick="deleteAssignment('+a.id+')" style="font-size:11px;padding:5px 10px;">Remove</button>'+
-        '</div></div>'+
-        '<div id="edit-form-'+a.id+'" style="display:none;background:var(--paper);padding:12px;border-top:1px solid var(--border);">'+
-        '<div style="font-size:11px;color:var(--muted);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;font-family:'JetBrains Mono',monospace;">Edit Assignment</div>'+
-        '<input type="text" id="edit-title-'+a.id+'" value="'+esc(a.title)+'" style="margin-bottom:8px;"/>'+
-        '<input type="datetime-local" id="edit-dl-'+a.id+'" value="'+localDL+'" style="margin-bottom:10px;"/>'+
-        '<div style="display:flex;gap:8px;">'+
-        '<button class="btn btn-navy" onclick="saveEditAssign('+a.id+')" style="font-size:12px;padding:7px 14px;">Save Changes</button>'+
-        '<button class="btn" onclick="toggleEditAssign('+a.id+')" style="background:var(--border);color:var(--ink);font-size:12px;padding:7px 12px;">Cancel</button>'+
-        '</div></div></div>';
-    }).join('')
-    :'<div style="color:var(--muted);font-size:12px;padding:6px 0;">No assignments yet.</div>';
+  var aList=document.getElementById("admin-assign-list");
+  if(!state.assignments.length){aList.innerHTML="<div style=\"color:var(--muted);font-size:12px;\">No assignments yet.</div>";return;}
+  aList.innerHTML=state.assignments.map(function(a){
+    var dl=new Date(a.deadline);
+    var localDL=new Date(dl.getTime()-dl.getTimezoneOffset()*60000).toISOString().slice(0,16);
+    return "<div style=\"border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden;\">"
+      +"<div class=\"admin-row\" style=\"padding:10px 12px;\"><div style=\"flex:1;\">"
+      +"<div style=\"font-weight:700;font-size:13px;\">"+esc(a.title)+"</div>"
+      +"<div style=\"font-size:11px;color:var(--muted);\">Deadline: "+fmt(a.deadline)+"</div>"
+      +"<div style=\"font-size:11px;color:var(--muted);\">"+a.checkins.length+" check-in(s)</div>"
+      +"</div><div style=\"display:flex;gap:6px;\">"
+      +"<button class=\"btn\" onclick=\"toggleEditAssign("+a.id+")\" id=\"edit-btn-"+a.id+"\" style=\"background:#eff6ff;color:#2d3280;font-size:11px;padding:5px 10px;\">Edit</button>"
+      +"<button class=\"btn\" onclick=\"toggleAssignStatus("+a.id+")\" style=\"font-size:11px;padding:5px 10px;background:"+(isClosed(a)?"#dcfce7":"#fee2e2")+";color:"+(isClosed(a)?"var(--green)":"var(--red)")+";\">"+(isClosed(a)?"Re-open":"Close")+"</button>"
+      +"<button class=\"btn btn-red\" onclick=\"deleteAssignment("+a.id+")\" style=\"font-size:11px;padding:5px 10px;\">Remove</button>"
+      +"</div></div>"
+      +"<div id=\"edit-form-"+a.id+"\" style=\"display:none;background:var(--paper);padding:12px;border-top:1px solid var(--border);\">"
+      +"<input type=\"text\" id=\"edit-title-"+a.id+"\" value=\""+esc(a.title)+"\" style=\"margin-bottom:8px;\"/>"
+      +"<input type=\"datetime-local\" id=\"edit-dl-"+a.id+"\" value=\""+localDL+"\" style=\"margin-bottom:10px;\"/>"
+      +"<div style=\"display:flex;gap:8px;\">"
+      +"<button class=\"btn btn-navy\" onclick=\"saveEditAssign("+a.id+")\" style=\"font-size:12px;\">Save</button>"
+      +"<button class=\"btn\" onclick=\"toggleEditAssign("+a.id+")\" style=\"background:var(--border);color:var(--ink);font-size:12px;\">Cancel</button>"
+      +"</div></div></div>";
+  }).join("");
 
-  document.getElementById('admin-member-list').innerHTML=state.members.length
-    ?state.members.map((m,i)=>
-      '<div class="admin-row">'+
-      '<div style="display:flex;align-items:center;gap:8px;flex:1;">'+
-      '<span style="font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;min-width:20px;">'+String(i+1).padStart(2,'0')+'</span>'+
-      '<span style="font-weight:700;font-size:13px;">'+esc(m.name)+'</span>'+
-      '<span style="font-size:10px;color:var(--muted);font-family:'JetBrains Mono',monospace;">'+(m.pin?'PIN set':'No PIN')+'</span>'+
-      '</div>'+
-      '<button class="btn btn-red" onclick="removeMember(''+esc(m.name)+'')" style="font-size:11px;padding:5px 10px;">Remove</button>'+
-      '</div>'
-    ).join('')
-    :'<div style="color:var(--muted);font-size:12px;padding:6px 0;">No members yet.</div>';
+  var mList=document.getElementById("admin-member-list");
+  if(!state.members.length){mList.innerHTML="<div style=\"color:var(--muted);font-size:12px;\">No members yet.</div>";return;}
+  mList.innerHTML=state.members.map(function(m,i){
+    return "<div class=\"admin-row\">"
+      +"<div style=\"display:flex;align-items:center;gap:8px;flex:1;\">"
+      +"<span style=\"font-size:11px;color:var(--muted);\">"+String(i+1).padStart(2,"0")+"</span>"
+      +"<span style=\"font-weight:700;font-size:13px;\">"+esc(m.name)+"</span>"
+      +"<span style=\"font-size:10px;color:var(--muted);\">"+( m.pin?"PIN set":"No PIN")+"</span>"
+      +"</div>"
+      +"<button class=\"btn btn-red\" onclick=\"removeMember("+JSON.stringify(m.name)+")\" style=\"font-size:11px;padding:5px 10px;\">Remove</button>"
+      +"</div>";
+  }).join("");
 }
 
 window.addAssignment=function(){
-  const title=document.getElementById('a-title').value.trim();
-  const dl=document.getElementById('a-deadline').value;
-  if(!title||!dl)return toast('Fill in title and deadline.','error');
-  state.assignments.push({id:Date.now(),title,deadline:new Date(dl).toISOString(),checkins:[]});
-  document.getElementById('a-title').value='';document.getElementById('a-deadline').value='';
-  save();toast('Assignment added!');renderAdmin();renderLockers();
+  var title=document.getElementById("a-title").value.trim();
+  var dl=document.getElementById("a-deadline").value;
+  if(!title||!dl)return toast("Fill in title and deadline.","error");
+  state.assignments.push({id:Date.now(),title:title,deadline:new Date(dl).toISOString(),checkins:[]});
+  document.getElementById("a-title").value="";document.getElementById("a-deadline").value="";
+  save();toast("Assignment added!");renderAdmin();renderLockers();
 };
-
 window.deleteAssignment=function(id){
-  state.assignments=state.assignments.filter(a=>a.id!==id);
-  save();toast('Assignment removed.');renderAdmin();renderLockers();
+  state.assignments=state.assignments.filter(function(a){return a.id!==id;});
+  save();toast("Assignment removed.");renderAdmin();renderLockers();
 };
-
 window.toggleEditAssign=function(id){
-  const form=document.getElementById('edit-form-'+id);
-  const btn=document.getElementById('edit-btn-'+id);
-  const isOpen=form.style.display!=='none';
-  form.style.display=isOpen?'none':'block';
-  btn.textContent=isOpen?'&#9998; Edit':'&#10005; Close';
-  btn.style.background=isOpen?'#eff6ff':'#fee2e2';
-  btn.style.color=isOpen?'#2d3280':'var(--red)';
+  var form=document.getElementById("edit-form-"+id);
+  var isOpen=form.style.display!=="none";
+  form.style.display=isOpen?"none":"block";
 };
-
 window.saveEditAssign=function(id){
-  const titleEl=document.getElementById('edit-title-'+id);
-  const dlEl=document.getElementById('edit-dl-'+id);
+  var titleEl=document.getElementById("edit-title-"+id);
+  var dlEl=document.getElementById("edit-dl-"+id);
   if(!titleEl||!dlEl)return;
-  const title=titleEl.value.trim();const dl=dlEl.value;
-  if(!title||!dl)return toast('Title and deadline cannot be empty.','error');
-  const a=state.assignments.find(x=>x.id===id);if(!a)return;
+  var title=titleEl.value.trim();var dl=dlEl.value;
+  if(!title||!dl)return toast("Title and deadline cannot be empty.","error");
+  var a=state.assignments.find(function(x){return x.id===id;});if(!a)return;
   a.title=title;a.deadline=new Date(dl).toISOString();
-  save();toast('Assignment updated!');renderAdmin();renderLockers();
+  save();toast("Assignment updated!");renderAdmin();renderLockers();
   if(panelMember)renderPanel();
 };
-
 window.toggleAssignStatus=function(id){
-  const a=state.assignments.find(x=>x.id===id);if(!a)return;
-  if(isClosed(a)){a.forceOpen=true;a.forceClosed=false;toast('Assignment re-opened ✅');}
-  else{a.forceClosed=true;a.forceOpen=false;toast('Assignment closed 🔒');}
+  var a=state.assignments.find(function(x){return x.id===id;});if(!a)return;
+  if(isClosed(a)){a.forceOpen=true;a.forceClosed=false;toast("Assignment re-opened!");}
+  else{a.forceClosed=true;a.forceOpen=false;toast("Assignment closed.");}
   save();renderAdmin();renderLockers();if(panelMember)renderPanel();
 };
-
 window.addMember=function(){
-  const name=document.getElementById('a-member').value.trim();if(!name)return;
-  if(state.members.find(m=>m.name===name))return toast('Name already exists.','error');
-  state.members.push({name,pin:''});
-  document.getElementById('a-member').value='';
-  save();toast(name+' added!');renderAdmin();renderLockers();
+  var name=document.getElementById("a-member").value.trim();if(!name)return;
+  if(state.members.find(function(m){return m.name===name;}))return toast("Name already exists.","error");
+  state.members.push({name:name,pin:""});
+  document.getElementById("a-member").value="";
+  save();toast(name+" added!");renderAdmin();renderLockers();
 };
-
 window.removeMember=function(name){
-  state.members=state.members.filter(m=>m.name!==name);
-  save();toast(name+' removed.');renderAdmin();renderLockers();
+  state.members=state.members.filter(function(m){return m.name!==name;});
+  save();toast(name+" removed.");renderAdmin();renderLockers();
 };
 
 window.openExport=function(){
-  const sel=document.getElementById('export-select');
-  sel.innerHTML='<option value="all">All Assignments</option>'+
-    state.assignments.map(a=>'<option value="'+a.id+'">'+esc(a.title)+'</option>').join('');
-  document.getElementById('export-overlay').classList.add('open');
+  var sel=document.getElementById("export-select");
+  sel.innerHTML="<option value=\"all\">All Assignments</option>"
+    +state.assignments.map(function(a){return "<option value=\""+a.id+"\">"+esc(a.title)+"</option>";}).join("");
+  document.getElementById("export-overlay").classList.add("open");
   updateExportText();
 };
-window.closeExport=function(){document.getElementById('export-overlay').classList.remove('open');};
-
+window.closeExport=function(){document.getElementById("export-overlay").classList.remove("open");};
 function getExportText(id){
-  const now=new Date().toLocaleString('en-GB');
-  const line='═'.repeat(48);
-  const hdr=line+'
-SAFETY CAMPAIGN GHANA — MENTORSHIP PROGRAMME 2026
-Assignment Check-In Report
-Generated: '+now+'
-'+line;
+  var now=new Date().toLocaleString("en-GB");
+  var line="================================================";
+  var hdr=line+"\nSAFETY CAMPAIGN GHANA - MENTORSHIP PROGRAMME 2026\nAssignment Check-In Report\nGenerated: "+now+"\n"+line;
   function rep(a){
-    const closed=isClosed(a);
-    const done=[...a.checkins];
-    const missing=state.members.filter(m=>!done.includes(m.name)).map(m=>m.name);
-    const pct=state.members.length?Math.round(done.length/state.members.length*100):0;
-    return '
-
-📋 '+a.title+'
-'+
-      '  Status   : '+(closed?'CLOSED':'OPEN')+'
-'+
-      '  Deadline : '+fmt(a.deadline)+'
-'+
-      '  Progress : '+done.length+'/'+state.members.length+' ('+pct+'%)
-
-'+
-      '  ✅ Completed ('+done.length+'):
-'+(done.length?done.map(m=>'  • '+m).join('
-'):'  (none)')+'
-
-'+
-      (closed
-        ?'  ❌ Did NOT submit ('+missing.length+'):
-'+(missing.length?missing.map(m=>'  • '+m).join('
-'):'  (all submitted)')+'
-'
-        :'  ⏳ Pending ('+missing.length+'):
-'+(missing.length?missing.map(m=>'  • '+m).join('
-'):'  (all done!)')+'
-');
+    var closed=isClosed(a);
+    var done=a.checkins.slice();
+    var missing=state.members.filter(function(m){return !done.includes(m.name);}).map(function(m){return m.name;});
+    var pct=state.members.length?Math.round(done.length/state.members.length*100):0;
+    return "\n\nAssignment: "+a.title+"\n"
+      +"Status   : "+(closed?"CLOSED":"OPEN")+"\n"
+      +"Deadline : "+fmt(a.deadline)+"\n"
+      +"Progress : "+done.length+"/"+state.members.length+" ("+pct+"%)\n\n"
+      +"Completed ("+done.length+"):\n"+(done.length?done.map(function(m){return "  - "+m;}).join("\n"):"  (none)")+"\n\n"
+      +(closed
+        ?"Did NOT submit ("+missing.length+"):\n"+(missing.length?missing.map(function(m){return "  - "+m;}).join("\n"):"  (all submitted)")+"\n"
+        :"Pending ("+missing.length+"):\n"+(missing.length?missing.map(function(m){return "  - "+m;}).join("\n"):"  (all done!)")+"\n");
   }
-  return id==='all'?hdr+state.assignments.map(rep).join('
-'+'─'.repeat(48)):hdr+rep(state.assignments.find(a=>a.id==id)||state.assignments[0]);
+  if(id==="all")return hdr+state.assignments.map(rep).join("\n"+line);
+  var found=state.assignments.find(function(a){return a.id==id;});
+  return hdr+rep(found||state.assignments[0]);
 }
-
-window.updateExportText=function(){document.getElementById('export-text').value=getExportText(document.getElementById('export-select').value);};
+window.updateExportText=function(){
+  document.getElementById("export-text").value=getExportText(document.getElementById("export-select").value);
+};
 window.copyExport=function(){
-  navigator.clipboard.writeText(document.getElementById('export-text').value)
-    .then(()=>toast('Copied!')).catch(()=>{document.getElementById('export-text').select();document.execCommand('copy');toast('Copied!');});
+  navigator.clipboard.writeText(document.getElementById("export-text").value)
+    .then(function(){toast("Copied!");}).catch(function(){document.getElementById("export-text").select();document.execCommand("copy");toast("Copied!");});
 };
 window.downloadExport=function(){
-  const blob=new Blob([document.getElementById('export-text').value],{type:'text/plain'});
-  const url=URL.createObjectURL(blob);const a=document.createElement('a');
-  a.href=url;a.download='SCG_Report_'+new Date().toISOString().slice(0,10)+'.txt';
-  a.click();URL.revokeObjectURL(url);toast('Downloaded!');
+  var blob=new Blob([document.getElementById("export-text").value],{type:"text/plain"});
+  var url=URL.createObjectURL(blob);var a=document.createElement("a");
+  a.href=url;a.download="SCG_Report_"+new Date().toISOString().slice(0,10)+".txt";
+  a.click();URL.revokeObjectURL(url);toast("Downloaded!");
 };
 
-['pin-overlay','panel-overlay','admin-overlay','export-overlay'].forEach(id=>{
-  document.getElementById(id).addEventListener('click',function(e){
+["pin-overlay","panel-overlay","admin-overlay","export-overlay"].forEach(function(id){
+  document.getElementById(id).addEventListener("click",function(e){
     if(e.target===this){
-      if(id==='pin-overlay')closePin();
-      else if(id==='panel-overlay')closePanel();
-      else if(id==='admin-overlay')closeAdmin();
+      if(id==="pin-overlay")closePin();
+      else if(id==="panel-overlay")closePanel();
+      else if(id==="admin-overlay")closeAdmin();
       else closeExport();
     }
   });
